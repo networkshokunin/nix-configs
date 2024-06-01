@@ -55,7 +55,6 @@
     ];
     files = [
       "/etc/machine-id"
-      "/root/.local/share/nix"
     ];
 
     # the following directories will be passed to /persistent/home/$USER
