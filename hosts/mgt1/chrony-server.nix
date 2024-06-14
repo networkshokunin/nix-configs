@@ -10,6 +10,6 @@
       allow 10.168.0.0/20
       '';
     }; 
-  networking.firewall.allowedUDPPorts = [ 123 ];
+  networking.firewall.allowedUDPPorts = [ 123 323 ];
   #todo: dhcpcd hook
 }

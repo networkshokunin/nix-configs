@@ -19,6 +19,7 @@ in {
     ./adguardhome.nix
     ./acme.nix
     ./nginx.nix
+    ./kea.nix
   ];
 
   networking = {
