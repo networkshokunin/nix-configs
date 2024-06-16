@@ -49,12 +49,38 @@
           id = 2;
         }          
         {
-          enabled = true;
+          enabled = false;
           name = "OISD (Big)";
           url = "https://big.oisd.nl";
           id = 3;
         }
+        {
+          enabled = true;
+          name = "Hagezi Multi Pro";
+          url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
+          id = 4;
+        }
+        {
+          enabled = true;
+          name = " Dandelion Sprout's Anti-Malware List";
+          url = "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt";
+          id = 5;
+        }
       ];
+    whitelist_filters= [
+        {
+          enabled = true;
+          name = "Hagezi Whitelist-Referral";
+          url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/whitelist-referral.txt";
+          id = 1;
+        }
+        {
+          enabled = true;
+          name = "Hagezi Whitelist-UrlShortener";
+          url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/whitelist-urlshortener.txt";
+          id = 2;
+        }
+    ];
     };
   };
 
