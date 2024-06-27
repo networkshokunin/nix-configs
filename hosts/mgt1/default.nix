@@ -34,7 +34,7 @@ in {
   # conflict with feature: containerd-snapshotter
   # virtualisation.docker.storageDriver = "btrfs";
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
