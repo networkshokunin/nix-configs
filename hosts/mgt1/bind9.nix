@@ -1,12 +1,17 @@
 { config, isc-configs, ... }:
 {
+  system.activationScripts.bind-zones.text = ''
+    mkdir -p /etc/bind/zones
+    chown named:named /etc/bind/zones
+  '';
+
   environment.etc = {
-    "zone_files/db.domain.com".source = "${isc-configs}/bind9/zone_files/db.domain.com";
-    "zone_files/db.1.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.1.in-addr.arpa";
-    "zone_files/db.2.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.2.in-addr.arpa";
-    "zone_files/db.3.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.3.in-addr.arpa";
-    "zone_files/db.4.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.4.in-addr.arpa";
-    "zone_files/db.5.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.5.in-addr.arpa";
+    "bind/zones/db.domain.com".source = "${isc-configs}/bind9/zone_files/db.domain.com";
+    "bind/zones/db.1.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.1.in-addr.arpa";
+    "bind/zones/db.2.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.2.in-addr.arpa";
+    "bind/zones/db.3.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.3.in-addr.arpa";
+    "bind/zones/db.4.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.4.in-addr.arpa";
+    "bind/zones/db.5.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.5.in-addr.arpa";
   };
 
   services.bind = {
