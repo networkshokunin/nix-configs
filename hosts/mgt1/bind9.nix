@@ -6,12 +6,48 @@
   '';
 
   environment.etc = {
-    "bind/zones/db.domain.com".source = "${isc-configs}/bind9/zone_files/db.domain.com";
-    "bind/zones/db.1.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.1.in-addr.arpa";
-    "bind/zones/db.2.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.2.in-addr.arpa";
-    "bind/zones/db.3.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.3.in-addr.arpa";
-    "bind/zones/db.4.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.4.in-addr.arpa";
-    "bind/zones/db.5.in-addr.arpa".source = "${isc-configs}/bind9/zone_files/db.5.in-addr.arpa";
+    "bind/zones/db.domain.com" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.domain.com";
+      user = "named";
+      group = "named";
+      mode = "0644";
+    };
+    "bind/zones/db.1.in-addr.arpa" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.1.in-addr.arpa";
+      user = "named";
+      group = "named";
+      mode = "0644";      
+    };
+    "bind/zones/db.2.in-addr.arpa" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.2.in-addr.arpa";
+      user = "named";
+      group = "named";
+      mode = "0644";      
+    };
+    "bind/zones/db.3.in-addr.arpa" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.3.in-addr.arpa";
+      user = "named";
+      group = "named";
+      mode = "0644";      
+    };
+    "bind/zones/db.4.in-addr.arpa" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.4.in-addr.arpa";
+      user = "named";
+      group = "named";
+      mode = "0644";      
+    };
+    "bind/zones/db.5.in-addr.arpa" = {
+      enable = true;
+      source = "${isc-configs}/bind9/zone_files/db.5.in-addr.arpa";
+      user = "named";
+      group = "named";
+      mode = "0644";      
+    };
   };
 
   services.bind = {
