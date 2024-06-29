@@ -62,3 +62,4 @@
 }
 
 #ref: https://github.com/cleverca22/nixos-configs/blob/b87de522a2d41db9697908f749ab89bf4441e57e/router.nat.nix#L114
+#ref: https://github.com/holochain/holochain-infra/blob/fa3d1091e05ca382f8a59a5760ae4c9db1907efd/modules/flake-parts/nixosConfigurations.dweb-reverse-tls-proxy/configuration.nix#L192

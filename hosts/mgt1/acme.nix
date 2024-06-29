@@ -14,9 +14,10 @@ in
         dnsPropagationCheck = true;  
         };
     certs = {
-	  "adguard.${myvars.domain}" = {
+	  "${myvars.domain}" = {
         inheritDefaults = true;
-        };
+        domain = "*.${myvars.domain}";
+      };
     };
   };
   sops.secrets.acme = {

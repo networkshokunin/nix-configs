@@ -20,6 +20,7 @@ in {
     ./acme.nix
     ./nginx.nix
     ./kea.nix
+    ./unifi.nix
   ];
 
   networking = {

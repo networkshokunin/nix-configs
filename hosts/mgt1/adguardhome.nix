@@ -87,7 +87,7 @@
 
   services.nginx.virtualHosts."adguard.${myvars.domain}" = {
     forceSSL = true;
-    useACMEHost = "adguard.${myvars.domain}";
+    useACMEHost = "${myvars.domain}";
     locations."/".proxyPass = "http://localhost:8001";
 	  extraConfig = ''
 		  proxy_set_header Host $host;
