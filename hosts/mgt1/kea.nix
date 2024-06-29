@@ -3,8 +3,11 @@
   services.kea = {
     dhcp4 = {
         enable = true;
-        #configFile = builtins.fromJSON (builtins.readFile ./kea.json);
         configFile = "${isc-configs}/kea/kea.json";
+    };
+    dhcp-ddns = {
+        enable = true;
+        configFile = "${isc-configs}/kea/ddns.json";
     };
   };
  
