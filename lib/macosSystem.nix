@@ -9,7 +9,7 @@
   specialArgs ? (genSpecialArgs system),
   ...
 }: let
-  inherit (inputs) nixpkgs home-manager nix-darwin;
+  inherit (inputs) nixpkgs-darwin home-manager nix-darwin;
 in
   nix-darwin.lib.darwinSystem {
     inherit system specialArgs;
@@ -17,7 +17,7 @@ in
       darwin-modules
       ++ [
         ({lib, ...}: {
-          nixpkgs.pkgs = import nixpkgs {inherit system;};
+          nixpkgs.pkgs = import nixpkgs-darwin {inherit system;};
         })
       ]
       ++ (
@@ -29,7 +29,7 @@ in
             home-manager.useUserPackages = true;
 
             home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${myvars.username}".imports = home-modules;
+            home-manager.users."${myvars.osx_username}".imports = home-modules;
           }
         ]
       );

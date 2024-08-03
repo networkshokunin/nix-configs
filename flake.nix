@@ -36,7 +36,6 @@
 
     # home-manager, used for managing user configuration
     home-manager = {
-      # url = "github:nix-community/home-manager/release-24.05";
       url = "github:nix-community/home-manager/master";
 
       # The `follows` keyword in inputs is used for inheritance.

@@ -58,7 +58,7 @@
     ];
 
     # the following directories will be passed to /persistent/home/$USER
-    users.${myvars.username} = {
+    users.${myvars.root_username} = {
       directories = [
       "nix-configs"
       { directory = ".ssh"; mode = "0700"; }

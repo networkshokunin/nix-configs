@@ -19,7 +19,8 @@ let
       })
       hostsAddr;
 in {
-  username = vars.username;
+  root_username = vars.root_username;
+  osx_username = vars.osx_username;
   fullname = vars.fullname;
   email = vars.email;
   domain = vars.domain;

@@ -50,14 +50,6 @@
     bat
   ];
 
-  users.users.${myvars.username} = {
-    description = myvars.fullname;
-    # Public Keys that can be used to login to all my PCs, Macbooks, and servers.
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ7X82I2M5GWwCnXugSceeFn4sSUexcoth4aRkZLyzkz"
-    ];
-  };
-
   programs.zsh.enable = true;
   environment.shells = [
     pkgs.zsh
@@ -70,7 +62,7 @@
     # given the users in this list the right to specify additional substituters via:
     #    1. `nixConfig.substituers` in `flake.nix`
     #    2. command line args `--options substituers http://xxx`
-    trusted-users = [myvars.username];
+    trusted-users = [myvars.root_username myvars.osx_username];
 
     # substituers that will be considered before the official ones(https://cache.nixos.org)
     substituters = [
@@ -82,4 +74,5 @@
     ];
     builders-use-substitutes = true;
   };
+
 }

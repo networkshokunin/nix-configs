@@ -1,0 +1,170 @@
+{
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "manipulators": [
+                            {
+                                "description": "Change capslock to command+control+option+shift.",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_shift",
+                                        "modifiers": ["right_command", "right_control", "right_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Apps Hotkeys",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "c",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Google Calendar'.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Firefox.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Finder.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Kitty.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "g",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Gmail.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "m",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Messages.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Signal.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Safari.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Things3.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Visual Studio Code.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Whatsapp.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "backslash",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a '1Password.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "left_shift",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_notification_message": {
+                                            "id": "org.pqrs.notificaion_message_global_shortcut",
+                                            "text": "C:Calendar, E:Firefox, F:Finder, G:GMail, K:Kitty, M:Messages, N:Signal, S:Safari, T: Things, V:Code, W:Whatsapp, Backslash:1Password"
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_notification_message": {
+                                            "id": "org.pqrs.notificaion_message_global_shortcut",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Alfred Search - F4 to Cmd + Space",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "f4" },
+                                "to": [
+                                    {
+                                        "key_code": "spacebar",
+                                        "modifiers": ["left_command"],
+                                        "repeat": true
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "name": "david",
+            "selected": true
+        }
+    ]
+}

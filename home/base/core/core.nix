@@ -4,6 +4,7 @@
 }: {
   home.packages = with pkgs; [
     # Misc
+    neovim
     tldr
     tree
     which
@@ -33,15 +34,15 @@
     nix-tree # A TUI to visualize the dependency graph of a nix derivation
 
     # productivity
-    ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
+    #ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
   ];
 
   programs = {
-    eza = {
-      enable = true;
-      git = true;
-      icons = true;
-    };
+  #  eza = {
+  #    enable = true;
+  #    git = true;
+  #    icons = true;
+  #  };
 
     bat = {
       enable = true;

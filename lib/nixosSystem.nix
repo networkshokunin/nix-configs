@@ -27,7 +27,7 @@ in
             home-manager.useUserPackages = true;
 
             home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${myvars.username}".imports = home-modules;
+            home-manager.users."${myvars.root_username}".imports = home-modules;
           }
         ]
       );

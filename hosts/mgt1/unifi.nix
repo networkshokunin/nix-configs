@@ -30,4 +30,10 @@
                         10001 # UDP port used for device discovery.
                       ];
   };
+
+  environment.persistence."/persistent" = {
+    directories = [
+    "/var/lib/unifi"
+    ];
+  };
 }
