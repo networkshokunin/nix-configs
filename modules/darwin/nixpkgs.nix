@@ -16,7 +16,6 @@
     #nushell # my custom shell
     gnugrep # replace macos's grep
     gnutar # replace macos's tar
-    rectangle
     pyenv
 
   ];
@@ -24,7 +23,6 @@
     {
       # Fix https://github.com/LnL7/nix-darwin/wiki/Terminfo-issues
       TERMINFO_DIRS = map (path: path + "/share/terminfo") config.environment.profiles ++ ["/usr/share/terminfo"];
-
       EDITOR = "nvim";
     };
 }

@@ -1,4 +1,6 @@
-{pkgs, ...}:
+{pkgs, myvars, ...}:
+
+{
 ###################################################################################
 #
 #  macOS's System configuration
@@ -9,7 +11,7 @@
 #    https://github.com/rgcr/m-cli
 #
 ###################################################################################
-{
+
   system = {
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     #https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
@@ -23,9 +25,113 @@
         -c "Set :AppleSymbolicHotKeys:30:enabled bool false" \
         -c "Set :AppleSymbolicHotKeys:31:enabled bool false" 
 
-      #64, 65 - spolight shortcuts
+      #64, 65 - spotight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
-      defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+
+      # Add Simplified Chinese to list of preferred languages
+      # https://github.com/andyjakubowski/dotfiles/blob/main/setup_macos.zsh
+      if ! defaults read -g AppleLanguages | grep -i --silent zh; then
+        defaults write -g AppleLanguages -array-add -string zh-Hans-SG
+      fi
+
+      # Add Simplifed Chinese (Pinyin) as an input source if it's not in the list of input sources
+      if ! defaults read com.apple.HIToolbox AppleEnabledInputSources | grep --silent 'InputSourceKind = "Input Mode"'; then
+          defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Input Method</string><key>Bundle ID</key><string>com.apple.inputmethod.SCIM</string><key>Input Mode</key><string>com.apple.inputmethod.SCIM.ITABC</string></dict>'
+      fi
+
+      if ! defaults read com.apple.HIToolbox AppleEnabledInputSources | grep --silent 'InputSourceKind = "Keyboard Input Method"'; then
+          defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Input Method</string><key>Bundle ID</key><string>com.apple.inputmethod.SCIM</string></dict>'
+      fi
+
+      # Expand the following File Info panes:
+      # “General”, “Open with”, and “Sharing & Permissions”
+      defaults write com.apple.finder FXInfoPanesExpanded -dict-add \
+      	MetaData -bool true \
+      	Comments -bool true \
+      	OpenWith -bool true \
+      	Preview -bool false
+
+      defaults write -g AppleFirstWeekday -dict gregorian -int 2
+
+      defaults write -g AppleWindowTabbingMode -string always
+
+      ###############################################################################
+      # Aldente Pro                                                                 #
+      ###############################################################################
+
+      # Setting values for the com.apphousekitchen.aldente-pro-setapp preferences
+      defaults write com.apphousekitchen.aldente-pro-setapp allowDischarge -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp automaticDischarge -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp calibrationBackupPercentage -int 80
+      defaults write com.apphousekitchen.aldente-pro-setapp chargeVal -int 70
+      defaults write com.apphousekitchen.aldente-pro-setapp clamshellDischargeMessage -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp completelyDisableSleep -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp continueCalibrationBehaviour -string "-1"
+      defaults write com.apphousekitchen.aldente-pro-setapp exitInhibitCharge -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp hasBeenActivated -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp heatProtectMode -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp helpMessage -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp intelModeWarningMessage -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp lastCalibrationState -string "-1"
+      defaults write com.apphousekitchen.aldente-pro-setapp lastSailingCheckpoint -int 0
+      defaults write com.apphousekitchen.aldente-pro-setapp lockScreenWhenClosed -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp lowChargeLimitWarning -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp lpmPreference -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp magsafeBlinkDischarge -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp magsafeControl -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp magsafeOff -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp maxTemperature -int 33
+      defaults write com.apphousekitchen.aldente-pro-setapp menuBarIconStyle -int 2
+      defaults write com.apphousekitchen.aldente-pro-setapp menubarRightClickAction -string "-1"
+      defaults write com.apphousekitchen.aldente-pro-setapp noMenubarIcon -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp popoverAnimation -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp sailingLevel -int 10
+      defaults write com.apphousekitchen.aldente-pro-setapp sailingMode -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp settingsLock -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp showDockIcon -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp showGUIonStartup -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp showHelperInstallationMessage -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp showPercentage -bool true
+      defaults write com.apphousekitchen.aldente-pro-setapp showPercentagePopover -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp sleepInhibitCharge -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp startTasksAfterDue -bool false
+      defaults write com.apphousekitchen.aldente-pro-setapp useRealPercentage -bool true
+
+      ###############################################################################
+      # Things 3                                                                    #
+      ###############################################################################
+
+      # Don’t show the onboarding
+      defaults write com.culturedcode.ThingsMac OnboardingDidComplete -bool true
+      # Show Calendar Events in Today and Upcoming lists
+      defaults write com.culturedcode.ThingsMac AppleEventsEnabled -bool true
+      # Disable the quick todo entry shortcut
+      defaults write com.culturedcode.ThingsMac QuickEntryEnabled -bool false
+      # Hide the Dock badge
+      defaults write com.culturedcode.ThingsMac CCDockCountType -int 0
+
+      ###############################################################################
+      # Cleanshot                                                                   #
+      ###############################################################################
+
+      # Setting values for the com.getcleanshot.app-setapp preferences
+      defaults write com.getcleanshot.app-setapp add2xRetinaSuffix -bool false
+      defaults write com.getcleanshot.app-setapp afterScreenshotActions -array 0 1
+      defaults write com.getcleanshot.app-setapp analyticsAllowed -bool false
+      defaults write com.getcleanshot.app-setapp autoClosePopup -bool true
+      defaults write com.getcleanshot.app-setapp captureWithoutDesktopIcons -bool true
+      defaults write com.getcleanshot.app-setapp deletePopupAfterDragging -bool true
+      defaults write com.getcleanshot.app-setapp exportPath -string "/Users/${myvars.osx_username}/Downloads"
+      defaults write com.getcleanshot.app-setapp mediaNameTemplate -array "Screenshot" "%y" "." "%m" "." "%d" "-" "%H" "." "%M" "." "%S"
+      defaults write com.getcleanshot.app-setapp popupAskForDestinationWhenSaving -bool false
+      defaults write com.getcleanshot.app-setapp popupAutoCloseInterval -int 15
+      defaults write com.getcleanshot.app-setapp popupAutoCloseMode -int 1
+      defaults write com.getcleanshot.app-setapp popupSize -int 2
+      defaults write com.getcleanshot.app-setapp screenshotFormat -string jpg
+      defaults write com.getcleanshot.app-setapp screenshotSound -bool true
+      defaults write com.getcleanshot.app-setapp selfTimerInterval -int 5
+      defaults write com.getcleanshot.app-setapp transparentWindowBackground -bool false
+
 
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
@@ -119,10 +225,12 @@
           # automatically switch to a new space when switching to the application
           AppleSpacesSwitchOnActivate = true;
         };
+
         NSGlobalDomain = {
           # Add a context menu item for showing the Web Inspector in web views
           WebKitDeveloperExtras = true;
         };
+
         "com.apple.finder" = {
           ShowExternalHardDrivesOnDesktop = false;
           ShowHardDrivesOnDesktop = false;
@@ -132,17 +240,47 @@
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
           FXEnableExtensionChangeWarning = false;
+          NewWindowTarget = "PfLo";
+          NewWindowTargetPath = "file:/Users/${myvars.osx_username}/Downloads";
         };
-        #need full disk access to the terminal app - kitty
+
+      ###############################################################################
+      # Safari                                                                      #
+      ###############################################################################
+
         "com.apple.Safari" = {
+          # New windows and tabs open with an empty page
+          HomePage = "";
+          NewWindowBehavior = true;
+          NewTabBehavior = true;
+
+          #tab behaviour
+          TabCreationPolicy = 2;
+          CommandClickMakesTabs = true;
+          OpenExternalLinksInExistingWindow = true;
+
           # Privacy: don’t send search queries to Apple
           UniversalSearchEnabled = false;
           SuppressSearchSuggestions = true;
           # Press Tab to highlight each item on a web page
           WebKitTabToLinksPreferenceKey = true;
           ShowFullURLInSmartSearchField = true;
+
+          # Hide Safari’s sidebar in Top Sites
+          ShowSidebarInTopSites = false;
+
+          # Make Safari’s search banners default to Contains instead of Starts With
+          FindOnPageMatchesWordStartsOnly = false;
+
+          # Warn about fraudulent websites
+          WarnAboutFraudulentWebsites = true;
+
+          # Enable “Do Not Track”
+          SendDoNotTrackHTTPHeader = true;
+
           # Prevent Safari from opening ‘safe’ files automatically after downloading
           AutoOpenSafeDownloads = false;
+
           ShowFavoritesBar = false;
           IncludeInternalDebugMenu = false;
           IncludeDevelopMenu = false;
@@ -153,10 +291,9 @@
           AutoFillCreditCardData = false;
           AutoFillMiscellaneousForms = false;
           AutoFillPasswords = false;
-          WarnAboutFraudulentWebsites = true;
+
           WebKitJavaEnabled = false;
           WebKitJavaScriptCanOpenWindowsAutomatically = false;
-          Homepage = "about:blank";
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
@@ -164,20 +301,25 @@
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
          };
+
+
         "com.apple.mail" = {
           # Disable inline attachments (just show the icons)
           DisableInlineAttachmentViewing = true;
         };
+
         "com.apple.desktopservices" = {
           # Avoid creating .DS_Store files on network or USB volumes
           DSDontWriteNetworkStores = true;
           DSDontWriteUSBStores = true;
         };
+
         "com.apple.screensaver" = {
           # Require password immediately after sleep or screen saver begins
           askForPassword = 1;
           askForPasswordDelay = 0;
         };
+
         "com.apple.SoftwareUpdate" = {
           AutomaticCheckEnabled = true;
           # Check for software updates daily, not just once per week
@@ -187,7 +329,8 @@
           # Install System data files & security updates
           CriticalUpdateInstall = 1;
          };
-        "com.apple.AdLib" = {
+
+        "com.apple.AdLib" = { 
           allowApplePersonalizedAdvertising = false;
         };
         "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
@@ -195,12 +338,23 @@
         "com.apple.ImageCapture".disableHotPlug = true;
         # Turn on app auto-update
         "com.apple.commerce".AutoUpdate = true;
+
+
         "com.apple.NetworkBrowser" = {
           # Enable AirDrop over Ethernet
           BrowseAllInterfaces = true;
         };
+        
         #Show remaining battery percent
         "com.apple.controlcenter.plist".BatteryShowPercentage = true;
+
+        #enable text input menu on menubar
+        "com.apple.TextInputMenu" = {
+          visible = 1;
+        };
+        "com.apple.TextInputMenuAgent" = {
+          "NSStatusItem Visible Item-0" = 1;
+        };
       };
 
       loginwindow = {
@@ -210,7 +364,7 @@
   };
 
   #disable startup chime
-  #system.startup.chime = false;
+  system.startup.chime = false;
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
@@ -221,11 +375,6 @@
   environment.shells = [
     pkgs.zsh
   ];
-
-  # Set your time zone.
-  # comment this due to the issue:
-  #   https://github.com/LnL7/nix-darwin/issues/359
-  # time.timeZone = "Asia/singapore";
 
   # Fonts
   fonts = {

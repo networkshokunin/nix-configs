@@ -1,4 +1,16 @@
-HOSTNAME := $(strip $(shell uname -n))
+OSFLAG 				:=
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+	    OSFLAG = LINUX
+	endif
+	ifeq ($(UNAME_S),Darwin)
+	    OSFLAG = DARWIN
+	endif
+
+all:
+	@echo $(OSFLAG)
+
+#HOSTNAME := $(strip $(shell uname -n))
 ############################################################################
 #
 #  Common commands(suitable for all machines)
@@ -32,7 +44,17 @@ gc:
 	sudo nix-collect-garbage --delete-old
 
 build:
-	sudo nixos-rebuild switch --flake ".#${HOSTNAME}"
+	@if [ "$(OSFLAG)" = "LINUX" ]; then \
+		HOSTNAME := $(strip $(shell uname -n)) \
+		sudo nixos-rebuild switch --flake ".#${HOSTNAME}"; \
+	fi
+
+	@if [ "$(OSFLAG)" = "DARWIN" ]; then \
+		HOSTNAME := $(shell uname -n) \
+		nix build .#darwinConfigurations.${HOSTNAME}.system \
+		--extra-experimental-features 'nix-command flakes'; \
+		./result/sw/bin/darwin-rebuild switch --flake .#${HOSTNAME}; \
+	fi	
 
 osx:
 	nix build .#darwinConfigurations.david-mbp14.system \

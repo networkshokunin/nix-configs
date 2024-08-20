@@ -13,7 +13,6 @@
     # Applications to install from Mac App Store using mas.
 
     masApps = {
-      PurePaste = 1611378436;
       Dato = 1470584107;
       Things3 = 904280696;
       Wireguard = 1451685025;
@@ -31,7 +30,6 @@
       "wget" 
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "aria2"
-      #"wireguard-tools" # wireguard
       "goenv"
       "php"
 
@@ -51,11 +49,11 @@
 
     # `brew install --cask`
     casks = [
-      "raindropio"  
+      "raindropio"
+      "rectangle"  
       "whatsapp"
       "visual-studio-code"
       "1password"
-      "1password-cli"
       "alfred"
       "signal"
       "setapp"
@@ -66,11 +64,12 @@
       "karabiner-elements"
       "obsidian"
       "firefox"
-      "cleanclip"
       "openinterminal"
       "ledger-live"
-      "topnotch"
       "elgato-stream-deck"
+      "jordanbaird-ice"
+      "cleanclip"
+      "arc"
     ];
   };
 }

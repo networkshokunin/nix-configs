@@ -1,7 +1,6 @@
 { lib, myvars, ...}: 
 {
   networking.firewall.allowedTCPPorts = [ 22 ];
-
   #networking.firewall.enable = lib.mkDefault false;
 
   programs.ssh = myvars.networking.ssh;
