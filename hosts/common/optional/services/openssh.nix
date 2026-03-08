@@ -7,6 +7,7 @@ let
   # replace the following line with: sshPort = 22; 
   # and substitute 22 with a custom port number if needed.
   sshPort = 22;
+in
 {
   services.openssh = {
     enable = true;
