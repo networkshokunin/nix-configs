@@ -158,7 +158,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-nix-secrets = {
+    nix-secrets = {
       url = "git+https://gitlab.com/networkshokunin/nix-secrets.git?ref=simple&shallow=1";
       inputs = { };
     };
