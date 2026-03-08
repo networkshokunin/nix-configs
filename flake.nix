@@ -159,8 +159,13 @@
     };
 
     nix-secrets = {
-      url = "git+ssh://git@gitlab.com:networkshokunin/nix-secrets.git?ref=simple&shallow=1";
+      url = "git+https://networkshokuningitlab.com:networkshokunin/nix-secrets.git?ref=simple&shallow=1";
       inputs = { };
     };
+
+    # nix-secrets = {
+    #   url = "git+ssh://git@gitlab.com:networkshokunin/nix-secrets.git?ref=simple&shallow=1";
+    #   inputs = { };
+    # };
   };
 }
