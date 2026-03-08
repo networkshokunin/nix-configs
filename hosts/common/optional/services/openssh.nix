@@ -6,9 +6,7 @@ let
   # FIXME(starter): if you are not defining ports in your "soft" nix-secrets, you can 
   # replace the following line with: sshPort = 22; 
   # and substitute 22 with a custom port number if needed.
-  sshPort = config.hostSpec.networking.ports.tcp.ssh;
-in
-
+  sshPort = 22;
 {
   services.openssh = {
     enable = true;

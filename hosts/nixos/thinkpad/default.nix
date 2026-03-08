@@ -20,11 +20,7 @@
     # ========== Disk Layout ==========
     #
     inputs.disko.nixosModules.disko
-    # FIXME(starter): modify with the disko spec file you want to use.
     (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    # FIXME(starter): modify the options below to inform disko of the host's disk path and swap requirements.
-    # IMPORTANT: nix-config-starter assumes a single disk per host. If you require more disks, you
-    # must modify or create new dikso specs.
     {
       _module.args = {
         disk = "/dev/nvme0n1";
@@ -45,7 +41,7 @@
       # FIXME(starter): add or remove any optional host-level configuration files the host will use
       # The following are for example sake only and are not necessarily required.
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
-      "hosts/common/optional/audio.nix" # pipewire and cli controls
+      #"hosts/common/optional/audio.nix" # pipewire and cli controls
       "hosts/common/optional/services/cosmic.nix"
     ])
   ];
@@ -67,7 +63,7 @@
     systemd-boot = {
       enable = true;
       # When using plymouth, initrd can expand by a lot each time, so limit how many we keep around
-      configurationLimit = lib.mkDefault 10;
+      configurationLimit = lib.mkDefault 5;
     };
     efi.canTouchEfiVariables = true;
     timeout = 3;
