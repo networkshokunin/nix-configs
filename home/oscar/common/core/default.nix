@@ -60,6 +60,7 @@ in
       iperf3
       wget
       vim
+      ghostty
       ;
   };
 
