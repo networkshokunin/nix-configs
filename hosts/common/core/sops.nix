@@ -46,7 +46,7 @@ in
       };
       # extract password/username to /run/secrets-for-users/ so it can be used to create the user
       "passwords/${config.hostSpec.username}" = {
-        sopsFile = "${sopsFolder}/shared.yaml";
+        sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
     }
