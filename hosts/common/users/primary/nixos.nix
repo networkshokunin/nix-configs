@@ -42,7 +42,7 @@ in
   users.users.root = {
     shell = pkgs.bash;
     hashedPasswordFile = config.users.users.${hostSpec.username}.hashedPasswordFile;
-    hashedPassword = config.users.users.${hostSpec.username}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
+    #hashedPassword = config.users.users.${hostSpec.username}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
     openssh.authorizedKeys.keys = config.users.users.${hostSpec.username}.openssh.authorizedKeys.keys; # root's ssh keys are mainly used for remote deployment.
   };
 }
