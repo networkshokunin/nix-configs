@@ -7,7 +7,7 @@
    {
       enable = true;
 
-      matchBlock = {
+      matchBlocks = {
          "*" = {
             controlMaster = "auto";
             controlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
