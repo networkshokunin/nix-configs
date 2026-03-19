@@ -43,6 +43,7 @@
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
       #"hosts/common/optional/audio.nix" # pipewire and cli controls
       "hosts/common/optional/services/cosmic.nix"
+      "hosts/common/optional/services/1password.nix"
     ])
   ];
 
