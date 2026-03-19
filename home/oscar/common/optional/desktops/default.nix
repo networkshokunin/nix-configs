@@ -1,16 +1,13 @@
-{ ... }:
-
+{ pkgs, ... }:
 {
-  # Enable the COSMIC login manager
-  services.displayManager.cosmic-greeter.enable = true;
+  # imports = [
+  #   # Packages with custom configs go here
 
-  # Enable the COSMIC desktop environment
-  services.desktopManager.cosmic.enable = true;
-
-  # services.displayManager.autoLogin = {
-  #   enable = true;
-  #   # Replace `yourUserName` with the actual username of user who should be automatically logged in
-  #   user = "yourUserName";
-  # };   
-
+  #   ########## Utilities ##########
+  #   ./gtk.nix
+  # ];
+  # home.packages = [
+  #   pkgs.pavucontrol # gui for pulseaudio server and volume controls
+  #   pkgs.galculator # gtk based calculator
+  # ];
 }
