@@ -59,6 +59,7 @@ in
       dnsutils
       iperf3
       wget
+      vim
       ;
   };
 
