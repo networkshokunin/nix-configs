@@ -15,7 +15,7 @@
     #
     # FIXME(starter): add or remove any optional config directories or files here
     common/optional/browsers/vivaldi
-    common/optional/security/1password
+    #common/optional/security/1password
     #common/optional/desktops
     #common/optional/comms
     #common/optional/media
