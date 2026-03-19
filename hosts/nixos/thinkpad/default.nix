@@ -19,15 +19,15 @@
     #
     # ========== Disk Layout ==========
     #
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    {
-      _module.args = {
-        disk = "/dev/nvme0n1";
-        withSwap = true;
-        swapSize = 16;
-      };
-    }
+    #inputs.disko.nixosModules.disko
+    #(lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
+    #{
+    #  _module.args = {
+    #    disk = "/dev/nvme0n1";
+    #    withSwap = true;
+    #    swapSize = 16;
+    #  };
+    #}
 
     (map lib.custom.relativeToRoot [
       #

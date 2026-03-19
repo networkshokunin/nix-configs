@@ -19,7 +19,7 @@
     #common/optional/comms
     #common/optional/media
 
-    common/optional/sops.nix
+    #common/optional/sops.nix
   ];
 
 }

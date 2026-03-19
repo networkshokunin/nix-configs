@@ -28,31 +28,51 @@
                 mountOptions = [ "defaults" ];
               };
             };
-            root = {
-              size = "100%";
+            SWAP = {
+              name = "SWAP";
+              start = "1G";
+              end = "9G";
+              content = {
+                type = "swap";
+              };
+            };
+            BTRFS = {
+              name = "BTRFS";
+              start = "9G";
+              end = "90%";
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ]; # Override existing partition
                 # Subvolumes must set a mountpoint in order to be mounted,
                 # unless their parent is mounted
                 subvolumes = {
-                  "@root" = {
-                    mountpoint = "/";
+                  "home" = {
+                    mountpoint = "/home";
                     mountOptions = [
                       "compress=zstd"
                       "noatime"
                     ];
                   };
-                  "@nix" = {
+                  "nix" = {
                     mountpoint = "/nix";
                     mountOptions = [
                       "compress=zstd"
                       "noatime"
                     ];
                   };
-                  "@swap" = lib.mkIf withSwap {
-                    mountpoint = "/.swapvol";
-                    swap.swapfile.size = "${swapSize}G";
+                  "persistent" = {
+                    mountpoint = "/persistent";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "log" = {
+                    mountpoint = "/var/log";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                 };
               };
