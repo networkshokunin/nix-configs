@@ -44,7 +44,9 @@
               inherit inputs outputs lib;
               isDarwin = false;
             };
-            modules = [ ./hosts/nixos/${host} ];
+            modules = [ 
+              ./hosts/nixos/${host} 
+              ];
           };
         }) (builtins.attrNames (builtins.readDir ./hosts/nixos))
       );
@@ -143,6 +145,10 @@
     #
     # ========= Utilities =========
     #
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
