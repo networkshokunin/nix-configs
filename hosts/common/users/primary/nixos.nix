@@ -13,6 +13,11 @@ let
   sopsHashedPasswordFile = lib.optionalString (
     !config.hostSpec.isMinimal
   ) config.sops.secrets."passwords/${hostSpec.username}".path;
+
+  root_sopsHashedPasswordFile = lib.optionalString (
+    !config.hostSpec.isMinimal
+  ) config.sops.secrets."passwords/root".path;
+
 in
 {
   users.mutableUsers = false; # Only allow declarative credentials; Required for password to be set via sops during system activation!
@@ -41,7 +46,7 @@ in
   # root's ssh key are mainly used for remote deployment, borg, and some other specific ops
   users.users.root = {
     shell = pkgs.bash;
-    hashedPasswordFile = config.sops.secrets."passwords/root".path;
+    hashedPasswordFile = root_sopsHashedPasswordFile;
     #hashedPassword = config.users.users.${hostSpec.username}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
     openssh.authorizedKeys.keys = config.users.users.${hostSpec.username}.openssh.authorizedKeys.keys; # root's ssh keys are mainly used for remote deployment.
   };
