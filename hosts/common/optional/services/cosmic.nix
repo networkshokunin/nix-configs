@@ -2,6 +2,8 @@
   pkgs, config, ...
 }:
 {
+  #reference: https://wiki.nixos.org/wiki/COSMIC
+  
   # Enable the COSMIC login manager
   services.displayManager.cosmic-greeter.enable = true;
 
@@ -10,7 +12,6 @@
 
   services.displayManager.autoLogin = {
     enable = true;
-    # Replace `yourUserName` with the actual username of user who should be automatically logged in
     user = "${config.hostSpec.username}";
   };
 

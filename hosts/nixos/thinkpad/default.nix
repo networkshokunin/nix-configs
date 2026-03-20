@@ -41,9 +41,10 @@
       # FIXME(starter): add or remove any optional host-level configuration files the host will use
       # The following are for example sake only and are not necessarily required.
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
-      #"hosts/common/optional/audio.nix" # pipewire and cli controls
+      "hosts/common/optional/audio.nix" # pipewire and cli controls
       "hosts/common/optional/services/cosmic.nix"
       "hosts/common/optional/services/1password.nix"
+      "hosts/common/optional/services/fingerprint.nix"
     ])
   ];
 
