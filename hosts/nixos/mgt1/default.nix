@@ -29,6 +29,7 @@
     #    swapSize = 16;
     #  };
     #}
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
 
     (map lib.custom.relativeToRoot [
       #
