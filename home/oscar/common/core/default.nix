@@ -7,7 +7,7 @@
   ...
 }:
 let
-  platform = if pkgs.stdenv..isDarwin then "darwin" else "nixos";
+  platform = if pkgs.stdenv.isDarwin then "darwin" else "nixos";
   #platform = if hostSpec.isDarwin then "darwin" else "nixos";
 in
 {
