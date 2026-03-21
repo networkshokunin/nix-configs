@@ -29,6 +29,7 @@
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
       options = [ "subvol=persistent" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =

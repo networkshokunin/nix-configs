@@ -67,13 +67,10 @@
           systemd.services.btrfs-rollback = {
             description = "Rollback BTRFS root subvolume to a pristine state";
             wantedBy = [ "initrd.target" ];
-            # after = [
-            #   # NOTE: he \\x2d is a hyphen in the systemd unit name
-            #   #"dev-mapper-encrypted\\x2dnixos.device"
-            #   "dev-mapper-cryptprimary.device"
-            #   # LUKS/TPM process
-            #   "systemd-cryptsetup@${hostname}.service"
-            # ];
+            after = [
+              "initrd-root-device.target"
+              #https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/4
+            ];
             before = [ "sysroot.mount" ];
             unitConfig.DefaultDependencies = "no";
             serviceConfig.Type = "oneshot";

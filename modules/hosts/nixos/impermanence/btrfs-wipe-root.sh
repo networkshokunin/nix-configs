@@ -10,7 +10,7 @@
 
 mkdir /btrfs_tmp
 
-mount -t btrfs /dev/disk/by-label/BTRFS/root /btrfs_tmp
+mount -t btrfs -o subvol=/ /dev/disk/by-label/BTRFS/root /btrfs_tmp
 
 if [[ -e /btrfs_tmp/root ]]; then
     mkdir -p /btrfs_tmp/old_roots || true
