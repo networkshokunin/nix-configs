@@ -8,6 +8,7 @@
 
     isImpermanent = lib.mkForce true;
     persistFolder = "/persist";
+    isDarwin = lib.mkForce false;
 
   };
 }
