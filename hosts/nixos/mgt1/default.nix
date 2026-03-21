@@ -1,10 +1,11 @@
 #############################################################
 #
-#  Thinkpad
+#  Mgt1
 #
 ###############################################################
 
 {
+  config,
   inputs,
   lib,
   ...
@@ -46,8 +47,13 @@
   # ========== Host Specification ==========
   #
 
-  hostSpec = {
-    hostName = "mgt1";
+  # hostSpec = {
+  #   hostName = "mgt1";
+  # };
+
+  system.impermanence = {
+    enable = config.hostSpec.isImpermanent;
+    autoPersistHomes = true;
   };
 
   networking = {
