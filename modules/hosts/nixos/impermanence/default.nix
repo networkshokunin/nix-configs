@@ -68,7 +68,8 @@
             description = "Rollback BTRFS root subvolume to a pristine state";
             wantedBy = [ "initrd.target" ];
             after = [
-              "initrd-root-device.target"
+              "dev-disk-by\\x2did-nvme\x2deui.6479a77ebad00414.device"
+              #"initrd-root-device.target"
               #https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/4
             ];
             before = [ "sysroot.mount" ];
