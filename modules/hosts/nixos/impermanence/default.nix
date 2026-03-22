@@ -53,7 +53,7 @@
 
     boot.initrd.systemd.enable = lib.mkForce true;
     boot.initrd.systemd.services.rollback = let
-      rollbackScript = pkgs.substituteAll {
+      rollbackScript = pkgs.replaceVars {
         src = ./rollback-script.sh;  # Create a separate file for the script if preferred, or inline it
         removeTmpFilesOlderThan = config.system.impermanence.removeTmpFilesOlderThan;
       };
