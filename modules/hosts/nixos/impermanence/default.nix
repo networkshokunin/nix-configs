@@ -52,38 +52,7 @@
         script = pkgs.writeShellScript "rollback" (builtins.readFile ./rollback.sh);
       in "${script}";
     };
-  };
-      # NOTE: With boot.initrd.systemd.enable = true, we can't use boot.initrd.postDeviceCommands as per
-      # https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167
-      # So we build an early stage systemd service, which is modeled after
-      # https://github.com/kjhoerr/dotfiles/blob/trunk/.config/nixos/os/persist.nix
-      # boot.initrd.postDeviceCommands = lib.mkAfter (lib.readFile ./btrfs_wipe_root.sh);
-      # Also see https://github.com/Misterio77/nix-config/blob/main/hosts/common/optional/ephemeral-btrfs.nix
-      # boot.initrd =
-      #   let
-      #     hostname = config.networking.hostName;
-      #     btrfs-subvolume-wipe-src = lib.readFile ./btrfs-wipe-root.sh;
-      #   in
-      #   {
-      #     supportedFilesystems = [ "btrfs" ];
-      #     # https://github.com/Teqed/nixos-config/blob/b71f45af9108aaceb017d75d3daf7b1d1c85d5fe/modules/nixos/impermanence.nix#L129
-      #     systemd.services.btrfs-rollback = {
-      #       description = "Rollback BTRFS root subvolume to a pristine state";
-      #       wantedBy = ["initrd.target"];
-      #       requires = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-      #       wants = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-      #       after = [
-      #         "dev-disk-by\\x2dlabel-BTRFS.device"
-      #       ];
-      #       before = [
-      #         "sysroot.mount"
-      #       ];
-      #       unitConfig.DefaultDependencies = "no";
-      #       serviceConfig.Type = "oneshot";
-      #       script = btrfs-subvolume-wipe-src;
-      #     };
-      #   };
-
+  
       fileSystems."${config.hostSpec.persistFolder}".neededForBoot = true;
 
       # NOTE: This is a list of directories and files that we want to persist across reboots for all systems
@@ -139,7 +108,6 @@
 
       programs.fuse.userAllowOther = true;
 
-      environment.systemPackages = [ btrfs-diff ];
-    }
-  );
+      #environment.systemPackages = [ btrfs-diff ];
+    };
 }
