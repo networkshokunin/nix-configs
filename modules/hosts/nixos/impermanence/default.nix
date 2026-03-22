@@ -52,26 +52,29 @@
     {
 
     boot.initrd.systemd.enable = lib.mkForce true;
-    boot.initrd.systemd.services.rollback = let
-      rollbackScript = pkgs.replaceVars ./rollback-script.sh {
-        "@removeTmpFilesOlderThan@" = toString config.system.impermanence.removeTmpFilesOlderThan;
+    boot.initrd = 
+      let
+        rollbackScript = pkgs.replaceVars ./rollback-script.sh {
+          "@removeTmpFilesOlderThan@" = toString config.system.impermanence.removeTmpFilesOlderThan;
+        };
+      in
+      {
+        supportedFilesystems = [ "btrfs" ];
+    
+        systemd.services.rollback = {
+          description = "Rollback BTRFS root subvolume to a pristine state";
+          wantedBy = [ "initrd.target" ];
+          
+          # Dependencies
+          requires = [ "dev-disk-by\\x2dlabel-BTRFS.device" ];
+          after = [ "dev-disk-by\\x2dlabel-BTRFS.device" ];
+          before = [ "sysroot.mount" ];
+    
+          unitConfig.DefaultDependencies = "no";
+          serviceConfig.Type = "oneshot";
+          script = rollbackScript;
+        };
       };
-    in {
-      description = "Rollback BTRFS root subvolume to a pristine state";
-      wantedBy = ["initrd.target"];
-      requires = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-      wants = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-      after = [
-        "dev-disk-by\\x2dlabel-BTRFS.device"
-      ];
-      before = [
-        "sysroot.mount"
-      ];
-      unitConfig.DefaultDependencies = "no";
-      serviceConfig.Type = "oneshot";
-      script = rollbackScript;
-    };
-
 
       # NOTE: With boot.initrd.systemd.enable = true, we can't use boot.initrd.postDeviceCommands as per
       # https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167
