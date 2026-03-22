@@ -68,9 +68,8 @@
             description = "Rollback BTRFS root subvolume to a pristine state";
             wantedBy = [ "initrd.target" ];
             after = [
-              "dev-disk-by\\x2did-nvme\x2deui.6479a77ebad00414.device"
-              #"initrd-root-device.target"
-              #https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/4
+              # NOTE: he \\x2d is a hyphen in the systemd unit name
+              "initrd-root-device.target"
             ];
             before = [ "sysroot.mount" ];
             unitConfig.DefaultDependencies = "no";
@@ -126,8 +125,6 @@
           "/etc/machine-id"
           "/etc/ssh/ssh_host_ed25519_key"
           "/etc/ssh/ssh_host_ed25519_key.pub"
-          "/etc/ssh/ssh_host_rsa_key"
-          "/etc/ssh/ssh_host_rsa_key.pub"
 
           # Non-essential
           "/root/.ssh/known_hosts"

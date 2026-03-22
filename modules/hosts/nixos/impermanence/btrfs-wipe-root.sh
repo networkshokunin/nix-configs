@@ -10,12 +10,13 @@
 
 mkdir /btrfs_tmp
 
+# FIXME: encrypted-nixos needs to change for non-LUKs hosts with impermanence
 mount -t btrfs -o subvol=/ /dev/disk/by-label/BTRFS /btrfs_tmp
 
-if [[ -e /btrfs_tmp/root ]]; then
-    mkdir -p /btrfs_tmp/old_roots || true
-    timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
-    mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+if [[ -e /btrfs_tmp/@root ]]; then
+    mkdir -p /btrfs_tmp/@old_roots || true
+    timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/@root)" "+%Y-%m-%d_%H:%M:%S")
+    mv /btrfs_tmp/@root "/btrfs_tmp/@old_roots/$timestamp"
 fi
 
 delete_subvolume_recursively() {
@@ -26,9 +27,9 @@ delete_subvolume_recursively() {
     btrfs subvolume delete "$1"
 }
 
-find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30 | while read -r old; do
+find /btrfs_tmp/@old_roots/ -maxdepth 1 -mtime +30 | while read -r old; do
     delete_subvolume_recursively "$old"
 done
 
-btrfs subvolume create /btrfs_tmp/root
+btrfs subvolume create /btrfs_tmp/@root
 umount /btrfs_tmp
