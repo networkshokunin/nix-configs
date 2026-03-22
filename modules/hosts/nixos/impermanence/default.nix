@@ -41,14 +41,7 @@
 
   config = lib.mkIf config.system.impermanence.enable (
     let
-      btrfs-diff = pkgs.writeShellApplication {
-        name = "btrfs-diff";
-        runtimeInputs = lib.attrValues { inherit (pkgs) eza fd btrfs-progs; };
-        text = lib.readFile ./btrfs-diff.sh;
-      };
-      rollbackScript = pkgs.replaceVars ./rollback-script.sh {
-        "@removeTmpFilesOlderThan@" = toString config.system.impermanence.removeTmpFilesOlderThan;
-      };
+       rollbackScript = lib.readFile ./rollback-script.sh;
     in
     {
       boot.initrd = {
