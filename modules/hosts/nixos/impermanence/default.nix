@@ -72,8 +72,8 @@
       serviceConfig.Type = "oneshot";
       script = rollbackScript.text;
     };
-    
-    };
+
+
       # NOTE: With boot.initrd.systemd.enable = true, we can't use boot.initrd.postDeviceCommands as per
       # https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167
       # So we build an early stage systemd service, which is modeled after
