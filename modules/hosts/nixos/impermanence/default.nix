@@ -99,7 +99,7 @@
 
       programs.fuse.userAllowOther = true;
 
-      environment.systemPackages = [ btrfs-diff ];
+      #environment.systemPackages = [ btrfs-diff ];
     }
   );
 }
