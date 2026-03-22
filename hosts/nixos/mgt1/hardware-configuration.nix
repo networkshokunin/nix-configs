@@ -16,19 +16,19 @@
   fileSystems."/" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
-      options = [ "subvol=root" ];
+      options = [ "subvol=@root" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "subvol=@nix" ];
     };
 
   fileSystems."/persistent" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
-      options = [ "subvol=persistent" ];
+      options = [ "subvol=@persistent" ];
       neededForBoot = true;
     };
 

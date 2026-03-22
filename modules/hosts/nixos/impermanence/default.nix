@@ -75,14 +75,14 @@
                 # FIXME: I don't entirely understand why this happens sometimes... a service works, then on rebuild
                 # it tries to migrate to use a */private/* version and fails because of 755 perms. Then often requires
                 # manual 700 modification to fix if I forget to add this first.
-                {
-                  directory = "/var/lib/private";
-                  mode = "0700";
-                }
-                {
-                  directory = "/var/cache/private";
-                  mode = "0700";
-                }
+                # {
+                #   directory = "/var/lib/private";
+                #   mode = "0700";
+                # }
+                # {
+                #   directory = "/var/cache/private";
+                #   mode = "0700";
+                # }
 
               ]
               ++ lib.optional config.system.impermanence.autoPersistHomes (
