@@ -51,7 +51,7 @@
     in
     {
 
-    boot.initrd.systemd.enable = lib.mkForce true;
+    #boot.initrd.systemd.enable = lib.mkForce true;
     boot.initrd = 
       let
         rollbackScript = pkgs.replaceVars ./rollback-script.sh {
@@ -60,16 +60,16 @@
       in
       {
         supportedFilesystems = [ "btrfs" ];
-    
+
         systemd.services.rollback = {
           description = "Rollback BTRFS root subvolume to a pristine state";
           wantedBy = [ "initrd.target" ];
-          
+
           # Dependencies
           requires = [ "dev-disk-by\\x2dlabel-BTRFS.device" ];
           after = [ "dev-disk-by\\x2dlabel-BTRFS.device" ];
           before = [ "sysroot.mount" ];
-    
+
           unitConfig.DefaultDependencies = "no";
           serviceConfig.Type = "oneshot";
           script = rollbackScript;
