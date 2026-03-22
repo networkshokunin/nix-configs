@@ -69,7 +69,7 @@
       ];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
-      script = rollbackScript.text;
+      script = rollbackScript;
     };
 
 
