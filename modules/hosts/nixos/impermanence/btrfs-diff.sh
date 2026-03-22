@@ -51,7 +51,7 @@ fi
 SNAPSHOT=""
 MOUNTDIR=$(mktemp -d)
 # FIXME: Should make the default whatever teh system uses, which won't always have luks
-BTRFS_VOL=/dev/disk/by-label/BTRFS/
+BTRFS_VOL=/dev/disk/by-label/BTRFS
 ROOT_LABEL=@root
 OLD_ROOTS_LABEL=@old_roots
 LIST_OLD=0
