@@ -51,36 +51,62 @@
     in
     {
 
+    boot.initrd.systemd.enable = lib.mkForce true;
+    boot.initrd.postResumeCommands = lib.mkAfter ''
+      mkdir /btrfs_tmp
+      mount /dev/disk/by-label/BTRFS /btrfs_tmp
+      if [[ -e /btrfs_tmp/root ]]; then
+          mkdir -p /btrfs_tmp/old_roots
+          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+      fi
+
+      delete_subvolume_recursively() {
+          IFS=$'\n'
+          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+              delete_subvolume_recursively "/btrfs_tmp/$i"
+          done
+          btrfs subvolume delete "$1"
+      }
+
+      for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
+          delete_subvolume_recursively "$i"
+      done
+
+      btrfs subvolume create /btrfs_tmp/root
+      umount /btrfs_tmp
+    '';
+
       # NOTE: With boot.initrd.systemd.enable = true, we can't use boot.initrd.postDeviceCommands as per
       # https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167
       # So we build an early stage systemd service, which is modeled after
       # https://github.com/kjhoerr/dotfiles/blob/trunk/.config/nixos/os/persist.nix
       # boot.initrd.postDeviceCommands = lib.mkAfter (lib.readFile ./btrfs_wipe_root.sh);
       # Also see https://github.com/Misterio77/nix-config/blob/main/hosts/common/optional/ephemeral-btrfs.nix
-      boot.initrd =
-        let
-          hostname = config.networking.hostName;
-          btrfs-subvolume-wipe-src = lib.readFile ./btrfs-wipe-root.sh;
-        in
-        {
-          supportedFilesystems = [ "btrfs" ];
-          # https://github.com/Teqed/nixos-config/blob/b71f45af9108aaceb017d75d3daf7b1d1c85d5fe/modules/nixos/impermanence.nix#L129
-          systemd.services.btrfs-rollback = {
-            description = "Rollback BTRFS root subvolume to a pristine state";
-            wantedBy = ["initrd.target"];
-            requires = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-            wants = ["dev-disk-by\\x2dlabel-BTRFS.device"];
-            after = [
-              "dev-disk-by\\x2dlabel-BTRFS.device"
-            ];
-            before = [
-              "sysroot.mount"
-            ];
-            unitConfig.DefaultDependencies = "no";
-            serviceConfig.Type = "oneshot";
-            script = btrfs-subvolume-wipe-src;
-          };
-        };
+      # boot.initrd =
+      #   let
+      #     hostname = config.networking.hostName;
+      #     btrfs-subvolume-wipe-src = lib.readFile ./btrfs-wipe-root.sh;
+      #   in
+      #   {
+      #     supportedFilesystems = [ "btrfs" ];
+      #     # https://github.com/Teqed/nixos-config/blob/b71f45af9108aaceb017d75d3daf7b1d1c85d5fe/modules/nixos/impermanence.nix#L129
+      #     systemd.services.btrfs-rollback = {
+      #       description = "Rollback BTRFS root subvolume to a pristine state";
+      #       wantedBy = ["initrd.target"];
+      #       requires = ["dev-disk-by\\x2dlabel-BTRFS.device"];
+      #       wants = ["dev-disk-by\\x2dlabel-BTRFS.device"];
+      #       after = [
+      #         "dev-disk-by\\x2dlabel-BTRFS.device"
+      #       ];
+      #       before = [
+      #         "sysroot.mount"
+      #       ];
+      #       unitConfig.DefaultDependencies = "no";
+      #       serviceConfig.Type = "oneshot";
+      #       script = btrfs-subvolume-wipe-src;
+      #     };
+      #   };
 
       fileSystems."${config.hostSpec.persistFolder}".neededForBoot = true;
 
