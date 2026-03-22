@@ -64,14 +64,18 @@
         in
         {
           supportedFilesystems = [ "btrfs" ];
+          # https://github.com/Teqed/nixos-config/blob/b71f45af9108aaceb017d75d3daf7b1d1c85d5fe/modules/nixos/impermanence.nix#L129
           systemd.services.btrfs-rollback = {
             description = "Rollback BTRFS root subvolume to a pristine state";
-            wantedBy = [ "initrd.target" ];
+            wantedBy = ["initrd.target"];
+            requires = ["dev-disk-by\\x2dlabel-BTRFS.device"];
+            wants = ["dev-disk-by\\x2dlabel-BTRFS.device"];
             after = [
-              # NOTE: he \\x2d is a hyphen in the systemd unit name
-              "initrd-root-device.target"
+              "dev-disk-by\\x2dlabel-BTRFS.device"
             ];
-            before = [ "sysroot.mount" ];
+            before = [
+              "sysroot.mount"
+            ];
             unitConfig.DefaultDependencies = "no";
             serviceConfig.Type = "oneshot";
             script = btrfs-subvolume-wipe-src;
