@@ -45,7 +45,7 @@
       description = "Rollback BTRFS root subvolume to a pristine state";
       wantedBy = ["initrd.target"];
       before = ["sysroot.mount"];
-      after = config.impermanence.serviceAfter;
+      after = ["systemd-udev-settle.service"];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
 
