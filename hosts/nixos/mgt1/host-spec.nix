@@ -7,7 +7,7 @@
     ];
 
     isImpermanent = lib.mkForce true;
-    persistFolder = "/persistent";
+    persistFolder = "/persist";
     primaryUsername = "oscar";
 
   };
