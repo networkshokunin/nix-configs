@@ -74,7 +74,7 @@
 
   boot.initrd = {
     systemd.enable = true;
-    emergencyAccess = true;
+    systemd.emergencyAccess = true;
   };
 
   hardware.graphics = {
