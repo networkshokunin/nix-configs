@@ -11,7 +11,7 @@
 mkdir /btrfs_tmp
 
 # FIXME: encrypted-nixos needs to change for non-LUKs hosts with impermanence
-mount -t btrfs -o subvol=/ /dev/disk/by-label/root /btrfs_tmp
+mount -t btrfs -o subvol=/ /dev/mapper/cryptprimary /btrfs_tmp
 
 if [[ -e /btrfs_tmp/@root ]]; then
     mkdir -p /btrfs_tmp/@old_roots || true
