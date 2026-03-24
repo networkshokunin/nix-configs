@@ -43,7 +43,7 @@
   config = lib.mkIf config.system.impermanence.enable {
     boot.initrd.systemd.services.rollback = {
       description = "Rollback BTRFS root subvolume to a pristine state";
-      wantedBy = ["initrd.target"];
+      wantedBy = ["initrd-root-device.target"];
       before = ["sysroot.mount"];
       after = ["systemd-udev-settle.service"];
       unitConfig.DefaultDependencies = "no";
