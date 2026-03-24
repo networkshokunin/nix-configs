@@ -86,6 +86,12 @@
           default = null;
         };
 
+        impermanenceDirectories = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          description = "A list of directories to persist if impermanence is enabled";
+          default = [ ];
+        };
+
         # Configuration Settings
         users = lib.mkOption {
           type = lib.types.listOf lib.types.str;
