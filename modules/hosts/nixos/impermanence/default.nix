@@ -45,8 +45,8 @@
       description = "Rollback BTRFS root subvolume to a pristine state";
       wantedBy = ["initrd.target"];
       before = ["sysroot.mount"];
-      requires = [ "dev-disk-by\\x2dpartlabel\\x2ddisk-main\\x2droot.device" ];
-      after = [ "dev-disk-by\\x2dpartlabel\\x2ddisk-main\\x2droot.device" ];
+      requires = [ "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device" ];
+      after = [ "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device" ];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
 
