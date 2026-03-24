@@ -9,6 +9,9 @@
     isImpermanent = lib.mkForce true;
     persistFolder = "/persist";
     primaryUsername = "oscar";
+    impermanenceDirectories = [
+      "/home/oscar/"
+    ];
 
   };
 }
