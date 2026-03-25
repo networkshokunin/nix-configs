@@ -87,8 +87,15 @@
               "/var/lib/systemd/coredump"
               "/etc/NetworkManager/system-connections"
               "/var/db/sudo"
-
             ]
+            ++ lib.optional config.system.impermanence.autoPersistHomes (
+            map (user: {
+              directory = "${if pkgs.stdenv.isDarwin then "/Users" else "/home"}/${user}";
+              inherit user;
+              group = if pkgs.stdenv.isDarwin then "staff" else "users";
+              mode = "u=rwx,g=,o=";
+            }) config.hostSpec.users
+            )
           )
         );
         files = [
