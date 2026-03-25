@@ -78,26 +78,15 @@
       fileSystems."${config.hostSpec.persistFolder}".neededForBoot = true;
 
       environment.persistence."${config.hostSpec.persistFolder}" = {
-        directories = (
-          lib.flatten (
-            [
-              "/var/log"
-              "/var/lib/bluetooth" # move to bluetooth-specific
-              "/var/lib/nixos"
-              "/var/lib/systemd/coredump"
-              "/etc/NetworkManager/system-connections"
-              "/var/db/sudo"
-            ]
-            ++ lib.optional config.system.impermanence.autoPersistHomes (
-            map (user: {
-              directory = "${if pkgs.stdenv.isDarwin then "/Users" else "/home"}/${user}";
-              inherit user;
-              group = if pkgs.stdenv.isDarwin then "staff" else "users";
-              mode = "u=rwx,g=,o=";
-            }) config.hostSpec.users
-            )
-          )
-        );
+        directories = [
+          "/var/log"
+          "/var/lib/bluetooth"
+          "/var/lib/nixos"
+          "/var/lib/systemd/coredump"
+          "/etc/NetworkManager/system-connections"
+          "/var/db/sudo"
+        ] ++ lib.optional config.system.impermanence.autoPersistHomes "/home/${config.hostSpec.primaryUsername}";
+      
         files = [
           # Essential. If you don't have these for basic setup, you will have a bad time
           "/etc/machine-id"
