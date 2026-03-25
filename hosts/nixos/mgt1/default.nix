@@ -36,6 +36,7 @@
       # ========== Required Configs ==========
       #
       "hosts/common/core"
+      ./host-spec.nix
 
       #      #
       # ========== Optional Configs ==========
