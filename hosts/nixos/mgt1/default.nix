@@ -36,7 +36,7 @@
       # ========== Required Configs ==========
       #
       "hosts/common/core"
-      ./host-spec.nix
+      "./host-spec.nix"
 
       #      #
       # ========== Optional Configs ==========
@@ -49,9 +49,9 @@
   # ========== Host Specification ==========
   #
 
-  hostSpec = {
-    hostName = "mgt1";
-  };
+  # hostSpec = {
+  #   hostName = "mgt1";
+  # };
 
   system.impermanence = {
     enable = config.hostSpec.isImpermanent;
