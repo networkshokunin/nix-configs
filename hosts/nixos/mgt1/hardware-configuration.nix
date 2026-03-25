@@ -14,31 +14,39 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/e7620669-8a03-492f-8a4e-a33f62a0d3e4";
+    { device = "/dev/disk/by-uuid/52f63432-c06d-4d40-9deb-ae080b39c1e6";
       fsType = "btrfs";
-      options = [ "subvol=@root" ];
+      options = [ "subvol=root" "noatime" "compress=zstd" ];
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3E32-B0A9";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/52f63432-c06d-4d40-9deb-ae080b39c1e6";
+      fsType = "btrfs";
+      options = [ "subvol=home" "noatime" "compress=zstd" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/e7620669-8a03-492f-8a4e-a33f62a0d3e4";
+    { device = "/dev/disk/by-uuid/52f63432-c06d-4d40-9deb-ae080b39c1e6";
       fsType = "btrfs";
-      options = [ "subvol=@nix" ];
+      options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/e7620669-8a03-492f-8a4e-a33f62a0d3e4";
+    { device = "/dev/disk/by-uuid/52f63432-c06d-4d40-9deb-ae080b39c1e6";
       fsType = "btrfs";
-      options = [ "subvol=@persist" ];
+      options = [ "subvol=persist" "noatime" "compress=zstd" ];
+      neededForBoot = true;
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/52f63432-c06d-4d40-9deb-ae080b39c1e6";
+      fsType = "btrfs";
+      options = [ "subvol=log" "noatime" "compress=zstd" ];
+      neededForBoot = true;
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/882d1b3f-9cc9-4750-865d-d9f332c0edc0"; }
+    [ { device = "/dev/disk/by-uuid/1bcbc682-40cb-4af4-acfc-5bf772ace9f4"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

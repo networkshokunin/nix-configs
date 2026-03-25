@@ -17,19 +17,19 @@
     #
     ./hardware-configuration.nix
 
-    #
-    # ========== Disk Layout ==========
-    #
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    {
-     _module.args = {
-       disk = "/dev/nvme0n1";
-       withSwap = true;
-       swapSize = 16;
-     };
-    }
-    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
+    # #
+    # # ========== Disk Layout ==========
+    # #
+    # inputs.disko.nixosModules.disko
+    # (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
+    # {
+    #  _module.args = {
+    #    disk = "/dev/nvme0n1";
+    #    withSwap = true;
+    #    swapSize = 16;
+    #  };
+    # }
+    # (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
 
     (map lib.custom.relativeToRoot [
       #
