@@ -36,8 +36,7 @@
       # ========== Required Configs ==========
       #
       "hosts/common/core"
-      "./host-spec.nix"
-
+      "hosts/nixos/mgt1/host-spec.nix"
       #      #
       # ========== Optional Configs ==========
       #
