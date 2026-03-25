@@ -155,10 +155,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1774424526,
-        "narHash": "sha256-QvwbTNqVhN4skSK/WFpfKjemqMpBWaUZuectRG1L27M=",
+        "lastModified": 1774433876,
+        "narHash": "sha256-1EOo0wce9D0aMBHN1Egs3YPXj6kJOzA+ebZYQyeu2yk=",
         "ref": "main",
-        "rev": "a2993f1ad7b9c6f51f3b3c36ff2efaff89fd17a2",
+        "rev": "b3ef56667d94f44a4bdf494e543f5031b95dca08",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/networkshokunin/nix-secrets.git"

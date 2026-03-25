@@ -55,20 +55,7 @@
           serviceConfig.Type = "oneshot";
           script = ''
             mkdir -p /mnt
-
-            # We first mount the BTRFS root to /mnt
-            # so we can manipulate btrfs subvolumes.
             mount -o subvol=/ /dev/disk/by-label/BTRFS /mnt
-
-            # While we're tempted to just delete /root and create
-            # a new snapshot from /root-blank, /root is already
-            # populated at this point with a number of subvolumes,
-            # which makes `btrfs subvolume delete` fail.
-            # So, we remove them first.
-            #
-            # /root contains subvolumes:
-            # - /root/var/lib/portables
-            # - /root/var/lib/machines
 
             btrfs subvolume list -o /mnt/root |
               cut -f9 -d' ' |

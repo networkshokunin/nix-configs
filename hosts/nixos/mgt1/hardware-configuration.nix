@@ -14,45 +14,32 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/185d6b8d-50c3-4404-9e5f-22a50ea79670";
+    { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
       options = [ "subvol=root" "noatime" "compress=zstd" ];
     };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/185d6b8d-50c3-4404-9e5f-22a50ea79670";
-      fsType = "btrfs";
-      options = [ "subvol=home" "noatime" "compress=zstd" ];
-    };
-
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/185d6b8d-50c3-4404-9e5f-22a50ea79670";
+    { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
       options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/185d6b8d-50c3-4404-9e5f-22a50ea79670";
+    { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
       options = [ "subvol=persist" "noatime" "compress=zstd" ];
       neededForBoot = true;
     };
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/185d6b8d-50c3-4404-9e5f-22a50ea79670";
-      fsType = "btrfs";
-      options = [ "subvol=log" "noatime" "compress=zstd" ];
-      neededForBoot = true;
-    };
-
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C04E-9138";
+    { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/fe68c15b-7235-4240-9ac1-ddca43b9e632"; }
+    [ { device = "/dev/disk/by-label/SWAP"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
