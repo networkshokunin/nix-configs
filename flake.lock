@@ -59,11 +59,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1774018263,
-        "narHash": "sha256-HHYEwK1A22aSaxv2ibhMMkKvrDGKGlA/qObG4smrSqc=",
+        "lastModified": 1774422943,
+        "narHash": "sha256-o1xgNumjljdBBfOrcQX95hhKGFOJQYNZqpF3EfaScMk=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "2d4b4717b2534fad5c715968c1cece04a172b365",
+        "rev": "632e4bfc21c01e5be900d0d8255a5368a5d6082f",
         "type": "github"
       },
       "original": {
@@ -155,10 +155,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1774409699,
-        "narHash": "sha256-Jdzdqwy/N2Q4Ga7jVCqaxiL9BdoaIhTyjFoHzKixaCA=",
+        "lastModified": 1774424526,
+        "narHash": "sha256-QvwbTNqVhN4skSK/WFpfKjemqMpBWaUZuectRG1L27M=",
         "ref": "main",
-        "rev": "4767f721da982df263b206a301e87f211927d062",
+        "rev": "a2993f1ad7b9c6f51f3b3c36ff2efaff89fd17a2",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/networkshokunin/nix-secrets.git"

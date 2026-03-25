@@ -47,7 +47,7 @@
         services.rollback = {
           description = "Rollback BTRFS root subvolume to a pristine state";
           wantedBy = ["initrd.target"];
-          after = [""dev-disk-by\\x2dlabel-BTRFS.device""];
+          after = ["initrd-root-device.target"];
           # Before mounting the system root (/sysroot) during the early boot process
           before = ["sysroot.mount"];
 
@@ -116,5 +116,6 @@
           "/root/.ssh/known_hosts"
         ];
       };
+      programs.fuse.userAllowOther = true; # allow non-root users to use fuse (e.g. for sshfs)
     };
 }

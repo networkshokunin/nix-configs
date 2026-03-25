@@ -25,7 +25,7 @@ in
 
     hostKeys = [
       {
-        path = "/etc/ssh/ssh_host_ed25519_key";
+        path = "${config.hostSpec.persistFolder}/etc/ssh/ssh_host_ed25519_key";
         type = "ed25519";
       }
     ];
