@@ -1,7 +1,7 @@
 { config, inputs, ...}:
 let
-  netPath = builtins.toString inputs.nix-secrets;
-  net = import "${netPath}/nix-vars/network.nix" { 
+  networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
+  net = import "${networkPath}" { 
     hostname = config.hostSpec.hostname; 
   };
 in
