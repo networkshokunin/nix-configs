@@ -17,27 +17,15 @@
     #
     ./hardware-configuration.nix
 
-    # #
-    # # ========== Disk Layout ==========
-    # #
-    # inputs.disko.nixosModules.disko
-    # (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    # {
-    #  _module.args = {
-    #    disk = "/dev/nvme0n1";
-    #    withSwap = true;
-    #    swapSize = 16;
-    #  };
-    # }
-    # (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
 
     (map lib.custom.relativeToRoot [
       #
       # ========== Required Configs ==========
       #
       "hosts/common/core"
-      "hosts/nixos/mgt1/host-spec.nix"
-      #      #
+
+
       # ========== Optional Configs ==========
       #
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
@@ -48,18 +36,9 @@
   # ========== Host Specification ==========
   #
 
-  # hostSpec = {
-  #   hostName = "mgt1";
-  # };
-
   system.impermanence = {
     enable = config.hostSpec.isImpermanent;
     autoPersistHomes = true;
-  };
-
-  networking = {
-    networkmanager.enable = true;
-    enableIPv6 = false;
   };
 
   boot.loader = {

@@ -14,12 +14,7 @@
       default = config.hostSpec.isImpermanent;
       description = "Enable impermanence";
     };
-    # FIXME: Actually use this in the script, but need to use the substituteAll approach
-    removeTmpFilesOlderThan = lib.mkOption {
-      type = lib.types.int;
-      default = 14;
-      description = "Number of days to keep old btrfs_tmp files";
-    };
+    
     autoPersistHomes = lib.mkOption {
       type = lib.types.bool;
       default = true;
