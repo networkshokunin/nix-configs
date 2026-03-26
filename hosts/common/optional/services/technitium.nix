@@ -9,7 +9,7 @@
   };
 
   systemd.services.technitium-dns-server.serviceConfig = {
-         WorkingDirectory = lib.mkForce "/var/lib/private/technitium-dns-server";
+         WorkingDirectory = lib.mkForce "/persist/var/lib/private/technitium-dns-server";
 
   };
 }
