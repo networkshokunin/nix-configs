@@ -9,13 +9,13 @@
     isImpermanent = lib.mkForce true;
     persistFolder = "/persist";
     primaryUsername = "oscar";
-    networking = {
-      interface = "enp1s0";
-      ipAddress = "10.168.10.194";
-      prefix = 24;
-      gateway = "10.168.10.1";
-      nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    };
+    # networking = {
+    #   interface = "enp1s0";
+    #   ipAddress = "10.168.10.194";
+    #   prefix = 24;
+    #   gateway = "10.168.10.1";
+    #   nameservers = [ "1.1.1.1" "9.9.9.9" ];
+    # };
 
 
   };

@@ -28,6 +28,7 @@
 
       # ========== Optional Configs ==========
       #
+      "hosts/common/optional/network.nix" # network configuration based on hostSpec
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
     ])
   ];
