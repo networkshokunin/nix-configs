@@ -12,8 +12,4 @@ in
       "/var/lib/private/technitium-dns-server"
     ];
   };
-
-  systemd.services.technitium-dns-server.serviceConfig = {
-         WorkingDirectory = lib.mkForce "/private/var/lib/private/technitium-dns-server";
-};
 }
