@@ -10,5 +10,6 @@
         }];
       };
     };
+    defaultGateway.address = "${config.hostSpec.networking.gateway}";
   };  
 }
