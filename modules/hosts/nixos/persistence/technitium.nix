@@ -9,7 +9,7 @@ in
 {
   config = lib.mkIf (config.services.technitium-dns-server.enable && isImpermanent) {
     environment.persistence."${config.hostSpec.persistFolder}".directories = [
-      #"/var/lib/technitium-dns-server"
+      "/var/lib/private/technitium-dns-server"
     ];
   };
 }
