@@ -1,24 +1,24 @@
 { config, inputs, ...}:
 let
-  networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  net = import "${networkPath}" { 
+  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
+  netConfig = import "${nix-var-networkPath}" { 
     hostname = config.hostSpec.hostName; 
   };
 in
 {
   networking = {
     enableIPv6 = false;
-    interfaces."${net.interface}" = {
+    interfaces."${netConfig.interface}" = {
       ipv4.addresses = [{
-        address = net.address;
-        prefixLength = net.prefixLength;
+        address = netConfig.address;
+        prefixLength =  netConfig.prefixLength;
       }];
     };
 
     defaultGateway = {
-      address = net.gateway;
+      address = netConfig.gateway;
     };
 
-    nameservers = net.nameservers;
+    nameservers = netConfig.nameservers;
   };
 }
