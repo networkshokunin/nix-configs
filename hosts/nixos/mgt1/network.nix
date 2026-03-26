@@ -6,7 +6,7 @@
       "${config.hostSpec.networking.interface}" = {
           ipv4.addresses = [{
             address = "${config.hostSpec.networking.ipAddress}";
-            prefixLength = "${config.hostSpec.networking.prefix}";
+            prefixLength = 24;
         }];
       };
     };
