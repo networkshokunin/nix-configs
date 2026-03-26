@@ -2,7 +2,7 @@
 let
   networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
   net = import "${networkPath}" { 
-    hostname = config.hostSpec.hostname; 
+    hostname = config.hostSpec.hostName; 
   };
 in
 {
