@@ -12,4 +12,8 @@ in
       "/var/lib/private/technitium-dns-server"
     ];
   };
+
+  ystemd.services.technitium-dns-server.serviceConfig = {
+         WorkingDirectory = lib.mkForce "/private/var/lib/private/technitium-dns-server";
+};
 }
