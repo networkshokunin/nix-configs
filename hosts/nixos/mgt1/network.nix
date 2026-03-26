@@ -6,10 +6,11 @@
       "${config.hostSpec.networking.interface}" = {
           ipv4.addresses = [{
             address = "${config.hostSpec.networking.ipAddress}";
-            prefixLength = 24;
+            prefixLength = config.hostSpec.networking.prefix;
         }];
       };
     };
     defaultGateway.address = "${config.hostSpec.networking.gateway}";
+    nameservers = config.hostSpec.networking.nameservers;
   };  
 }
