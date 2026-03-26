@@ -3,12 +3,12 @@
   networking = {
     enableIPv6 = false;
     interfaces = {
-      "${config.hostSpec.interface}" = {
+      "${config.hostSpec.networking.interface}" = {
           ipv4.addresses = [{
-          address = "${config.hostSpec.ipAddress}";
-          prefixLength = "${config.hostSpec.prefix}";
+            address = "${config.hostSpec.networking.ipAddress}";
+            prefixLength = "${config.hostSpec.networking.prefix}";
         }];
       };
     };
-  };
+  };  
 }
