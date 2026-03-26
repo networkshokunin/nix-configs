@@ -12,7 +12,7 @@
     networking = {
       interface = "enp1s0";
       ipAddress = "10.168.10.194";
-      prefix = "24";
+      prefix = 24;
     };
 
 
