@@ -64,6 +64,13 @@
   hardware.graphics = {
     enable = true;
   };
+
+  # https://nixos.org/manual/nixos/stable/#sec-rename-ifs
+  systemd.network.links."10-2.5Gb" = {
+    matchConfig.PermanentMACAddress = "9c:47:82:fb:b9:92";
+    linkConfig.Name = "server";
+  };
+
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.11";
 }

@@ -1,5 +1,6 @@
 { ... }:
 {
+  # https://www.apalrd.net/posts/2023/network_realtek8156/
   services.udev.extraRules = ''
     # This is used to change the default configuration of Realtek USB ethernet adapters
 
