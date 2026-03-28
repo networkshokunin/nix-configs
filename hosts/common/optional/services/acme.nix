@@ -1,7 +1,7 @@
 { config, inputs, ... }:
 let
-  sopsFolder = builtins.toString inputs.nix-secrets;
-  acmeEnv = "${sopsFolder}/sops/acme.env";
+  #sopsFolder = builtins.toString inputs.nix-secrets;
+  acmeEnv = "config.${sopsFolder}/sops/acme.env";
 
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
@@ -26,7 +26,6 @@ in
       };
     };
   };
-  
   sops.secrets.acme = {
     sopsFile = acmeEnv;
     format = "dotenv";
