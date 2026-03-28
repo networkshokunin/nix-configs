@@ -1,6 +1,8 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 let
+  nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
+
 in  
 {
   services.technitium-dns-server = {

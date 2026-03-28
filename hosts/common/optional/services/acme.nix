@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, inputs, ... }:
 let
   sopsFolder = builtins.toString inputs.nix-secrets;
   acmeEnv = "${sopsFolder}/sops/acme.env";
