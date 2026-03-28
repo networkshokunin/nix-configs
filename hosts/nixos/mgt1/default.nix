@@ -24,6 +24,7 @@
       # ========== Required Configs ==========
       #
       "hosts/common/core"
+      "hosts/common/services" # LLDP network topology discovery daemon
 
 
       # ========== Optional Configs ==========
