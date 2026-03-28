@@ -1,8 +1,8 @@
-{ lib, inputs, ... }:
+{ lib, inputs, config, ... }:
 let
+  isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
-
 in  
 {
   services.technitium-dns-server = {
@@ -26,5 +26,14 @@ in
 		#   proxy_set_header Host $host;
 	  # '';
   };
+
+  config = lib.mkIf ( isImpermanent ) {
+    environment.persistence."${config.hostSpec.persistFolder}".directories = [
+      "/var/lib/private/technitium-dns-server"
+    ];
+  };
+
+  # disable systemd-resolved to avoid conflicts with technitium dns server
+  services.resolved.enable = false;
 
 }

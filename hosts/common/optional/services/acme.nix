@@ -1,5 +1,6 @@
-{ config, inputs, ... }:
+{ lib, inputs, config, ... }:
 let
+  isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
   sopsFolder = builtins.toString inputs.nix-secrets;
   acmeEnv = "${sopsFolder}/sops/acme.env";
 
@@ -17,12 +18,14 @@ in
         dnsProvider = acmeConfig.provider;
         dnsResolver = acmeConfig.resolver;
         dnsPropagationCheck = true;  
-        # group = "nginx";
+        group = config.services.nginx.group;
+        renewInterval = "*-*-* 00/03:00:00";
         };
     certs = {
 	  "${acmeConfig.domain}" = {
         inheritDefaults = true;
         domain = "*.${acmeConfig.domain}";
+        reloadServices = [ "nginx" ];
       };
     };
   };
@@ -31,7 +34,10 @@ in
     format = "dotenv";
   };
 
-  environment.persistence."${config.hostSpec.persistFolder}".directories = [
-      "/var/lib/private/technitium-dns-server"
+  config = lib.mkIf ( isImpermanent ) {
+    environment.persistence."${config.hostSpec.persistFolder}".directories = [
+      "/var/lib/acme"
     ];
+  };
+
 }
