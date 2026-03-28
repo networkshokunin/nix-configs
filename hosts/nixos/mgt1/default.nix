@@ -30,6 +30,8 @@
       #
       "hosts/common/optional/network.nix" # network configuration based on hostSpec
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
+      "hosts/common/optional/services/acme.nix" # ACME client for automatic TLS certs
+      "hosts/common/optional/services/nginx.nix" # Nginx web server
       "hosts/common/optional/services/technitium.nix" # Technitium DNS Server
     ])
   ];
