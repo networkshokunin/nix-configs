@@ -1,4 +1,7 @@
 { lib, ... }:
+let
+  acmeConfig = import "${nix-var-acmePath}";
+in  
 {
   services.technitium-dns-server = {
     enable = true;
@@ -12,4 +15,14 @@
          WorkingDirectory = lib.mkForce "/persist/var/lib/private/technitium-dns-server";
 
   };
+
+  services.nginx.virtualHosts."technitium.${acmeConfig.domain}" = {
+    forceSSL = true;
+    useACMEHost = "${acmeConfig.domain}";
+    locations."/".proxyPass = "http://127.0.0.1:5380";
+	  # extraConfig = ''
+		#   proxy_set_header Host $host;
+	  # '';
+  };
+
 }
