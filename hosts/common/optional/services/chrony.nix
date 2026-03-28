@@ -1,4 +1,4 @@
-{ inputs, ...}:
+{ config,inputs, ...}:
 let
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
   netConfig = import "${nix-var-networkPath}" { 
@@ -14,9 +14,12 @@ in
     #https://wiki.archlinux.org/title/Chrony
     enableNTS = true;
     extraConfig = ''
-      allow ${netConfig.network}/${netConfig.prefixLength}
+      allow ${netConfig.network}/${toString netConfig.prefixLength}
       '';
     }; 
   networking.firewall.allowedUDPPorts = [ 123 323 ];
 
+  environment.persistence."${config.hostSpec.persistFolder}".directories = [
+      "/var/lib/chrony"
+    ];
 }
