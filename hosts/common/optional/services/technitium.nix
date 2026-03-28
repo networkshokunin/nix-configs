@@ -27,11 +27,9 @@ in
 	  # '';
   };
 
-  config = lib.mkIf isImpermanent {
-    environment.persistence."${config.hostSpec.persistFolder}".directories = [
+  environment.persistence."${config.hostSpec.persistFolder}".directories = [
       "/var/lib/private/technitium-dns-server"
     ];
-  };
 
   # disable systemd-resolved to avoid conflicts with technitium dns server
   services.resolved.enable = false;
