@@ -22,10 +22,11 @@ in
     certs = {
 	  "${acmeConfig.domain}" = {
         inheritDefaults = true;
-        domain = "*.${config.hostSpec.domain}";
+        domain = "*.${acmeConfig.domain}";
       };
     };
   };
+  
   sops.secrets.acme = {
     sopsFile = acmeEnv;
     format = "dotenv";
