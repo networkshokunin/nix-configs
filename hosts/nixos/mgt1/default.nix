@@ -65,8 +65,13 @@
     enable = true;
   };
 
-  # https://nixos.org/manual/nixos/stable/#sec-rename-ifs
-  systemd.network.links."10-2.5Gb" = {
+  # # https://nixos.org/manual/nixos/stable/#sec-rename-ifs
+  # systemd.network.links."10-1Gb" = {
+  #   matchConfig.PermanentMACAddress = "7c:83:34:bc:0c:67";
+  #   linkConfig.Name = "mgmt";
+  # };
+
+  systemd.network.links."20-2.5Gb" = {
     matchConfig.PermanentMACAddress = "9c:47:82:fb:b9:92";
     linkConfig.Name = "server";
   };
