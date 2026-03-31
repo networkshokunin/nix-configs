@@ -72,7 +72,7 @@
   # };
 
   systemd.network.links."20-10Gb" = {
-    matchConfig.PermanentMACAddress = "3c:ec:ef:e0:1c:30";
+    matchConfig.PermanentMACAddress = "90:e2:ba:4a:44:fe";
     linkConfig.Name = "server";
   };
 
