@@ -1,4 +1,4 @@
-{ lib, inputs, config, ... }:
+{ lib, inputs, config, pkgs, ... }:
 let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
@@ -6,7 +6,7 @@ let
 in  
 {
   services.technitium-dns-server = {
-    package = inputs.nixpkgs-unstable.technitium-dns-server;
+    package = pkgs.unstable.technitium-dns-server;
     enable = true;
     openFirewall = true;
     # Whether to open ports in the firewall. 
