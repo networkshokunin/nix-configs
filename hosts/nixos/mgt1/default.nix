@@ -33,7 +33,7 @@
       "hosts/common/optional/services/nginx.nix" # Nginx web server
       "hosts/common/optional/services/technitium.nix" # Technitium DNS Server
       "hosts/common/optional/services/chrony.nix" # Chrony NTP client and server
-      "hosts/common/optional/realtek_usb_ethernet.nix" # Udev rules for Realtek USB ethernet adapters
+      #"hosts/common/optional/realtek_usb_ethernet.nix" # Udev rules for Realtek USB ethernet adapters
     ])
   ];
 
@@ -71,8 +71,8 @@
   #   linkConfig.Name = "mgmt";
   # };
 
-  systemd.network.links."20-2.5Gb" = {
-    matchConfig.PermanentMACAddress = "9c:47:82:fb:b9:92";
+  systemd.network.links."20-10Gb" = {
+    matchConfig.PermanentMACAddress = "3c:ec:ef:e0:1c:30";
     linkConfig.Name = "server";
   };
 
