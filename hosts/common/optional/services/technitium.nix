@@ -6,6 +6,7 @@ let
 in  
 {
   services.technitium-dns-server = {
+    package = inputs.nixpkgs-unstable.technitium-dns-server;
     enable = true;
     openFirewall = true;
     # Whether to open ports in the firewall. 
