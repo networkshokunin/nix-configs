@@ -7,7 +7,7 @@ in
 {
   services.netbox = {
     enable = true;
-    secretKeyFile = config.sops.secrets."netbox".path; 
+    secretKeyFile = config.sops.secrets."netbox.secretKey".path; 
   };
 
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
