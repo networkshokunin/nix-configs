@@ -15,9 +15,7 @@ in
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
     forceSSL = true;
     useACMEHost = "${acmeConfig.domain}";
-    extraConfig = ''
-        proxy_set_header X-Forwarded-Proto $scheme;
-      '';
+    serverName = "netbox.${acmeConfig.domain}";
     locations = {
       "/" = {
           proxyPass = "http://${config.services.netbox.listenAddress}:${toString config.services.netbox.port}";
