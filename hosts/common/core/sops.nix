@@ -53,6 +53,9 @@ in
         sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
+      "netbox/secretKey" = {
+        sopsFile = "${sopsFolder}/secrets.yaml";
+      };
     }
   ];
   # The containing folders are created as root and if this is the first ~/.config/ entry,
