@@ -55,6 +55,10 @@ in
       };
       "netbox/secretKey" = {
         sopsFile = "${sopsFolder}/secrets.yaml";
+        owner = "netbox";
+        group = "netbox";
+        mode = "0400";
+        restartUnits = [ "netbox.service" ];
       };
     }
   ];
