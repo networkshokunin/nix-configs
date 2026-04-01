@@ -25,7 +25,8 @@ in
     locations."/".proxyPass = "http://127.0.0.1:5380";
 	  extraConfig = ''
 		  #proxy_set_header Host $host;
-      allow 10.168.10.0/24;  
+      allow 10.168.10.0/24;
+      allow 10.168.200.0/24;  
       allow 127.0.0.1;      
     
       deny all;
