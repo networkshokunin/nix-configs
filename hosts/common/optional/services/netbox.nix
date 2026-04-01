@@ -15,12 +15,15 @@ in
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
     forceSSL = true;
     useACMEHost = "${acmeConfig.domain}";
-      locations = {
-        "/" = {
-            proxyPass = "http://${config.services.netbox.listenAddress}:${toString config.services.netbox.port}";
-        };
-        "/static/" = { alias = "${config.services.netbox.dataDir}/static/"; };
+    extraConfig = ''
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
+    locations = {
+      "/" = {
+          proxyPass = "http://${config.services.netbox.listenAddress}:${toString config.services.netbox.port}";
       };
+      "/static/" = { alias = "${config.services.netbox.dataDir}/static/"; };
+    };
   };
 
   users.users.nginx.extraGroups = [ "netbox" ];
