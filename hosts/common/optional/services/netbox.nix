@@ -23,6 +23,8 @@ in
       };
   };
 
+  users.users.nginx.extraGroups = [ "netbox" ];
+
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/netbox"
     ];
