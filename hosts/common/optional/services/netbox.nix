@@ -17,7 +17,7 @@ in
     useACMEHost = "${acmeConfig.domain}";
       locations = {
         "/" = {
-            proxyPass = "http://${config.services.netbox.listenAddress}:${config.services.netbox.port}";
+            proxyPass = "http://${config.services.netbox.listenAddress}:${toString config.services.netbox.port}";
         };
         "/static/" = { alias = "${config.services.netbox.dataDir}/static/"; };
       };
