@@ -16,15 +16,9 @@ in
     forceSSL = true;
     useACMEHost = "${acmeConfig.domain}";
     locations = {
-      "/static/" = {
-        alias = "${config.services.netbox.dataDir}/static/";
-      };
-      "/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.netbox.port}";
-        proxyWebsockets = true;
-        recommendedProxySettings = true;
-      };
-  };
+      "/".proxyPass = "http://netbox";
+      "/static/".alias = "${config.services.netbox.dataDir}/static/";
+    };
   };
 
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
