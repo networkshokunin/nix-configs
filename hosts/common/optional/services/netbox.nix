@@ -8,7 +8,6 @@ in
 
   services.netbox = {
     enable = true;
-    user = "netbox";
     secretKeyFile = config.sops.secrets."netbox/secretKey".path;
     listenAddress = "127.0.0.1"; 
   };
@@ -31,7 +30,7 @@ in
     };
   };
 
-  #users.users.nginx.extraGroups = [ "netbox" ];
+  users.users.nginx.extraGroups = [ "netbox" ];
 
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/netbox"
