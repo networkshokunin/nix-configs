@@ -1,4 +1,4 @@
-{ lib, inputs, config, pkgs, ... }:
+{ lib, inputs, config, ... }:
 let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;  
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
@@ -7,7 +7,7 @@ in
 {
   services.netbox = {
     enable = true;
-    secretKeyFile = config.sops.secrets."netbox_secretkey".path;
+    secretKeyFile = config.sops.secrets."netbox_secretkey".path; 
   };
 
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
