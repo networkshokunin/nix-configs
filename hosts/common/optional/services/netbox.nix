@@ -8,7 +8,8 @@ in
 
   services.netbox = {
     enable = true;
-    secretKeyFile = config.sops.secrets."netbox/secretKey".path; 
+    secretKeyFile = config.sops.secrets."netbox/secretKey".path;
+    listenAddress = "127.0.0.1"; 
   };
 
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
