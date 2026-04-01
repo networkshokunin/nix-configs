@@ -15,10 +15,12 @@ in
   services.nginx.virtualHosts."netbox.${acmeConfig.domain}" = {
     forceSSL = true;
     useACMEHost = "${acmeConfig.domain}";
-    locations = {
-      "/".proxyPass = "http://netbox";
-      "/static/".alias = "${config.services.netbox.dataDir}/static/";
-    };
+      locations = {
+        "/" = {
+            proxyPass = "http://${config.services.netbox.listenAddress}:${config.services.netbox.port}";
+        };
+        "/static/" = { alias = "${config.services.netbox.dataDir}/static/"; };
+      };
   };
 
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
