@@ -5,6 +5,17 @@ let
   acmeConfig = import "${nix-var-acmePath}";
 in  
 {
+
+  sops.secrets = {
+    "netbox/secretKey" = {
+      inherit (config.custom) sopsFile;
+      owner = "netbox";
+      group = "netbox";
+      mode = "0400";
+      restartUnits = [ "netbox.service" ];
+    };
+  };
+  
   services.netbox = {
     enable = true;
     secretKeyFile = config.sops.secrets."netbox/secretKey".path; 
