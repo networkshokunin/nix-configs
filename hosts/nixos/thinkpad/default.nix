@@ -7,6 +7,7 @@
 {
   inputs,
   lib,
+  config,
   ...
 }:
 {
@@ -16,18 +17,7 @@
     #
     ./hardware-configuration.nix
 
-    #
-    # ========== Disk Layout ==========
-    #
-    #inputs.disko.nixosModules.disko
-    #(lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    #{
-    #  _module.args = {
-    #    disk = "/dev/nvme0n1";
-    #    withSwap = true;
-    #    swapSize = 16;
-    #  };
-    #}
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
 
     (map lib.custom.relativeToRoot [
       #
@@ -52,8 +42,9 @@
   # ========== Host Specification ==========
   #
 
-  hostSpec = {
-    hostName = "thinkpad";
+  system.impermanence = {
+    enable = config.hostSpec.isImpermanent;
+    autoPersistHomes = true;
   };
 
   networking = {
@@ -78,6 +69,17 @@
   hardware.graphics = {
     enable = true;
   };
+
+  systemd.network.links."20-wired" = {
+    matchConfig.PermanentMACAddress = "84:a9:38:08:c5:51";
+    linkConfig.Name = "wired";
+  };
+
+  systemd.network.links."30-wireless" = {
+    matchConfig.PermanentMACAddress = "94:e2:3c:88:0c:61";
+    linkConfig.Name = "wifi";
+  };
+
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.11";
 }

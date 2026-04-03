@@ -9,7 +9,7 @@
        inputs.hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "uas" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -17,32 +17,20 @@
   fileSystems."/" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
-      #options = [ "subvol=root" ];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/BTRFS";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
+      options = [ "subvol=root" "noatime" "compress=zstd" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
-  fileSystems."/persistent" =
+  fileSystems."/persist" =
     { device = "/dev/disk/by-label/BTRFS";
       fsType = "btrfs";
+      options = [ "subvol=persist" "noatime" "compress=zstd" ];
       neededForBoot = true;
-      options = [ "subvol=persistent" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/BTRFS";
-      fsType = "btrfs";
-      options = [ "subvol=log" ];
     };
 
   fileSystems."/boot" =
@@ -54,7 +42,7 @@
   swapDevices =
     [ { device = "/dev/disk/by-label/SWAP"; }
     ];
-
+    
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
