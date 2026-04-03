@@ -80,7 +80,12 @@
           "/var/lib/systemd/coredump"
           "/etc/NetworkManager/system-connections"
           "/var/db/sudo"
-        ] ++ lib.optional config.system.impermanence.autoPersistHomes "/home/${config.hostSpec.primaryUsername}";
+        ] ++ lib.optional config.system.impermanence.autoPersistHomes {
+          directory = "/home/${config.hostSpec.primaryUsername}";
+          user = config.hostSpec.primaryUsername;
+          group = "users";
+          mode = "u=rwx,g=,o=";
+        };
       
         files = [
           # Essential. If you don't have these for basic setup, you will have a bad time
