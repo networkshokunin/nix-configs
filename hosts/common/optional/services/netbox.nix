@@ -3,6 +3,7 @@ let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;  
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
+  sopsFolder = builtins.toString inputs.nix-secrets;
 in  
 {
 
@@ -31,6 +32,18 @@ in
   };
 
   users.users.nginx.extraGroups = [ "netbox" ];
+
+  sops.secrets = lib.mkMerge [
+    {
+      "netbox/secretKey" = {
+        sopsFile = "${sopsFolder}/secrets.yaml";
+        owner = "netbox";
+        group = "netbox";
+        mode = "0400";
+        restartUnits = [ "netbox.service" ];
+      };
+    }
+  ];
 
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/netbox"
