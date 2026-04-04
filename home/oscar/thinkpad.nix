@@ -13,6 +13,7 @@
     common/optional/browsers/vivaldi
     common/optional/terminals/ghostty
     common/optional/sops.nix
+    common/optional/ide/cursor
   ];
 
 }
