@@ -163,7 +163,6 @@
     nix-secrets = {
       url = "git+ssh://git@gitlab.com/networkshokunin/nix-secrets.git?ref=main&shallow=1";
       inputs = { };
-      flake = false;
     };
   };
 }
