@@ -38,17 +38,17 @@ in
   #
   # FIXME(starter): modify the hostSpec options below to define values that are common across all hosts
   # such as the username and handle of the primary user (see also `nix-config/hosts/common/users/primary`)
-  # hostSpec = {
-  #   username = "oscar";
-  #   handle = "oscar";
-  #   inherit (inputs.nix-secrets)
-  #     domain
-  #     email
-  #     gitSigningKey
-  #     userFullName
-  #     networking
-  #     ;
-  # };
+  hostSpec = {
+    username = "oscar";
+    # handle = "oscar";
+    inherit (inputs.nix-secrets)
+      domain
+      email
+      gitSigningKey
+      userFullName
+      networking
+      ;
+  };
 
   networking.hostName = config.hostSpec.hostName;
 
