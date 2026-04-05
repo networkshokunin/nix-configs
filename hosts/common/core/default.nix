@@ -41,14 +41,14 @@ in
   hostSpec = {
     username = "oscar";
     handle = "oscar";
-    inherit (inputs.nix-secrets)
-      domain
-      email.user
-      email.git
-      gitSigningKey
-      userFullName
-      networking
-      ;
+    # inherit (inputs.nix-secrets)
+    #   domain
+    #   email.user
+    #   email.git
+    #   gitSigningKey
+    #   userFullName
+    #   networking
+    #   ;
   };
 
   networking.hostName = config.hostSpec.hostName;
