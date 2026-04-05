@@ -134,11 +134,12 @@
       }
     },
     "nix-secrets": {
+      "flake": false,
       "locked": {
-        "lastModified": 1775363419,
-        "narHash": "sha256-oP1+YF0bKKlayb39mF5XnDMTnCyLK5nmvw75CQ/n5Yw=",
+        "lastModified": 1775365256,
+        "narHash": "sha256-c0lz+woEn4pzib+6tGcZjhqnBoSk3J3+ng+BP7tzRik=",
         "ref": "main",
-        "rev": "fb8f936d157f89e707b8099b93b96e20b03c0a27",
+        "rev": "8dba564a0eb552d8721a37bbde764322bc8c43e6",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/networkshokunin/nix-secrets.git"
@@ -274,11 +275,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775188331,
-        "narHash": "sha256-/0BoSi0Dg0ON7IW0oscM12WSPBaMSCn36XTt0lHZoy8=",
+        "lastModified": 1775365543,
+        "narHash": "sha256-f50qrK0WwZ9z5EdaMGWOTtALgSF7yb7XwuE7LjCuDmw=",
         "owner": "mic92",
         "repo": "sops-nix",
-        "rev": "8f093d0d2f08f37317778bd94db5951d6cce6c46",
+        "rev": "a4ee2de76efb759fe8d4868c33dec9937897916f",
         "type": "github"
       },
       "original": {
