@@ -43,10 +43,10 @@ in
     # handle = "oscar";
     inherit (inputs.nix-secrets)
       domain
-      email
+      #email
       gitSigningKey
       userFullName
-      networking
+      #networking
       ;
   };
 

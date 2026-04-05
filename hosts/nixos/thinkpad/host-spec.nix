@@ -1,4 +1,4 @@
-{ lib, ... }:
+{  lib, ... }:
 {
   hostSpec = {
     hostName = "thinkpad";
