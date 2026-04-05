@@ -43,7 +43,7 @@ in
     handle = "oscar";
     inherit (inputs.nix-secrets)
       domain
-      email
+      #email
       userFullName
       networking
       ;
