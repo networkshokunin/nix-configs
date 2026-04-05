@@ -37,15 +37,21 @@ in
           description = "The hostname of the host";
         };
         email = lib.mkOption {
-          type =
-            with lib.types;
-            attrsOf (oneOf [
-              str
-              (listOf str)
-              int
-              (attrsOf str)
-            ]);
-          description = "The email of the user";
+          description = "Email configuration for the user";
+          type = lib.types.submodule {
+            options = {
+              user = lib.mkOption {
+                type = lib.types.str;
+                default = userConfig.email.user;
+                description = "Primary email address.";
+              };
+              git = lib.mkOption {
+                type = lib.types.str;
+                default = userConfig.email.git;
+                description = "Email address used for Git commits.";
+              };
+            };
+          };
         };
         work = lib.mkOption {
           default = { };
