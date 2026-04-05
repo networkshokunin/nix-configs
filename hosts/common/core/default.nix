@@ -43,7 +43,9 @@ in
     handle = "oscar";
     inherit (inputs.nix-secrets)
       domain
-      #email
+      email.user
+      email.git
+      gitSigningKey
       userFullName
       networking
       ;
