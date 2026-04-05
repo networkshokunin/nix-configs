@@ -34,7 +34,7 @@ in
     format = "dotenv";
   };
 
-  environment.persistence."${config.hostSpec.persistFolder}".directories = [
+  environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/acme"
     ];
 

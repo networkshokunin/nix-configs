@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ lib, ... }:
 {
   hostSpec = {
     hostName = "thinkpad";
@@ -9,6 +9,7 @@
     isImpermanent = lib.mkForce true;
     persistFolder = "/persist";
     primaryUsername = "oscar";
+    use1password = lib.mkForce true;
 
   };
 }

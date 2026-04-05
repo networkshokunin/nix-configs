@@ -1,12 +1,20 @@
 {
   config,
+  lib,
   ...
 }:
+let
+  onePassPath = "~/.1password/agent.sock";
+in    
 {
   programs.ssh =
    {
       enable = true;
       enableDefaultConfig = false;
+      extraConfig = lib.mkIf config.hostSpec.use1password ''
+        Host *
+            IdentityAgent ${onePassPath}
+      '';
       matchBlocks = {
          "*" = {
             controlMaster = "auto";

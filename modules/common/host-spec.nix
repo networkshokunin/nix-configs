@@ -6,6 +6,10 @@
   inputs,
   ...
 }:
+let
+  nix-var-userPath = "${inputs.nix-secrets}/nix-vars/user.nix";
+  userConfig = import "${nix-var-userPath}";
+in
 {
   options.hostSpec = lib.mkOption {
     type = lib.types.submodule {
@@ -15,6 +19,7 @@
         # Data variables that don't dictate configuration settings
         primaryUsername = lib.mkOption {
           type = lib.types.str;
+          default = userConfig.username;
           description = "The primary administrative username of the host";
         };
         primaryDesktopUsername = lib.mkOption {
@@ -59,12 +64,18 @@
         };
         domain = lib.mkOption {
           type = lib.types.str;
-          default = "local"; # Need a default for the installer
-          description = "The domain of the host";
+          default = userConfig.domain; # Need a default for the installer
+          description = "Domain of the host";
         };
         userFullName = lib.mkOption {
           type = lib.types.str;
-          description = "The full name of the user";
+          default = userConfig.userFullName;
+          description = "Full name of the user";
+        };
+        gitSigningKey = lib.mkOption {
+          type = lib.types.str;
+          default = userConfig.gitSigningKey;
+          description = "GPG signing key for git commits";
         };
         handle = lib.mkOption {
           type = lib.types.str;
@@ -108,35 +119,10 @@
           default = false;
           description = "Indicate a host uses impermanence";
         };
-        isProduction = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Indicate a production host";
-        };
         isServer = lib.mkOption {
           type = lib.types.bool;
           default = false;
           description = "Indicate a server host";
-        };
-        isWork = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that uses work resources";
-        };
-        isDevelopment = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host used for development";
-        };
-        isRoaming = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Used to indicate a roaming host for wireless, battery use, etc";
-        };
-        isRemote = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Used to indicate a host that is remotely managed";
         };
         isLocal = lib.mkOption {
           type = lib.types.bool;
@@ -148,65 +134,15 @@
           default = false;
           description = "Used to indicate a host that is used to admin other systems";
         };
-        useYubikey = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate if the host uses a yubikey";
-        };
-        voiceCoding = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that uses voice coding";
-        };
-        isAutoStyled = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that wants auto styling like stylix";
-        };
         theme = lib.mkOption {
           type = lib.types.str;
           default = "dracula";
           description = "The theme to use for the host (stylix, vscode, neovim, etc)";
         };
-        useNeovimTerminal = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that uses neovim for terminals";
-        };
-        useWindowManager = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Indicate a host that uses a window manager";
-        };
-        useAtticCache = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Indicate a host that uses LAN atticd for caching";
-        };
-        hdr = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that uses HDR";
-        };
-        scaling = lib.mkOption {
-          type = lib.types.str;
-          default = "1";
-          description = "Indicate what scaling to use. Floating point number";
-        };
         wallpaper = lib.mkOption {
           type = lib.types.path;
           default = "${inputs.nix-assets}/images/wallpapers/zen-01.png";
           description = "Path to wallpaper to use for system";
-        };
-        useWayland = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a host that uses Wayland";
-        };
-        useX11 = lib.mkOption {
-          type = lib.types.bool;
-          default = if config.hostSpec.useWindowManager && (!config.hostSpec.useWayland) then true else false;
-          description = "Indicate a host that uses X server";
         };
         defaultBrowser = lib.mkOption {
           type = lib.types.str;
@@ -228,10 +164,15 @@
           default = "niri";
           description = "The default desktop environment to use on the host";
         };
+        use1password = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Indicate if the host uses 1Password";
+        };
         # This is needed because nix.nix uses timeZone in both nixos and home context, the latter of which doesnt' have access to time.timeZone
         timeZone = lib.mkOption {
           type = lib.types.str;
-          default = "America/Edmonton";
+          default = "Asia/Singapore";
           description = "Timezone the system is in";
         };
 
@@ -249,17 +190,8 @@
       in
       [
         {
-          assertion =
-            !config.hostSpec.isWork || (config.hostSpec.isWork && !builtins.isNull config.hostSpec.work);
-          message = "isWork is true but no work attribute set is provided";
-        }
-        {
           assertion = !isImpermanent || (isImpermanent && ("${config.hostSpec.persistFolder}" != ""));
           message = "config.system.impermanence.enable is true but no persistFolder path is provided";
-        }
-        {
-          assertion = !(config.hostSpec.voiceCoding && config.hostSpec.useWayland);
-          message = "Talon, which is used for voice coding, does not support Wayland. See https://github.com/splondike/wayland-accessibility-notes";
         }
         {
           assertion = lib.elem config.hostSpec.primaryUsername config.hostSpec.users;
