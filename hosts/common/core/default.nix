@@ -46,7 +46,7 @@ in
       email
       gitSigningKey
       userFullName
-      #networking
+      networking
       ;
   };
 
