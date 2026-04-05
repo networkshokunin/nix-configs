@@ -12,7 +12,7 @@
     settings = {
       user ={
         name = config.hostSpec.userFullName;
-        email = config.hostSpec.email.gitEmail;
+        email = config.hostSpec.email.git;
       };
       init.defaultBranch = "master";
       user.signingkey = config.hostSpec.gitSigningKey;
