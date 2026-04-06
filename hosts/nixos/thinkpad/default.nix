@@ -35,6 +35,7 @@
       "hosts/common/optional/services/cosmic.nix"
       "hosts/common/optional/services/1password.nix"
       "hosts/common/optional/services/fingerprint.nix"
+      "hosts/common/optional/services/screen.nix"
     ])
   ];
 
