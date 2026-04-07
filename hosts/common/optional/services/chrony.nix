@@ -1,9 +1,9 @@
 { config,inputs, ...}:
 let
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  netConfig = import "${nix-var-networkPath}" { 
-    hostname = "lan_supernet"; 
-  };
+  netConfig = (import nix-var-networkPath { inherit lib; }) { 
+      hostname = config.hostSpec.hostName; 
+    };
 in
 {
   services.chrony = {
