@@ -14,6 +14,7 @@
     common/optional/terminals/ghostty
     common/optional/sops.nix
     common/optional/ide/cursor
+    common/optional/terminals/screen
   ];
 
 }
