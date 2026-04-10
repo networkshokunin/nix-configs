@@ -5,6 +5,8 @@
 
   home.packages = builtins.attrValues {
     inherit (pkgs)
+      signal-desktop
+      whatsapp-electron
       ;
   };
 }

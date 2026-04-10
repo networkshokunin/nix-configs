@@ -16,6 +16,7 @@
     common/optional/ide/cursor
     common/optional/terminals/screen
     common/optional/terminals/sops
+    common/optional/comms
   ];
 
 }
