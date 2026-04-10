@@ -17,6 +17,7 @@
     common/optional/terminals/screen
     common/optional/terminals/sops
     common/optional/comms
+    common/optional/pkm/obsidian
   ];
 
 }
