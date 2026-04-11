@@ -1,4 +1,4 @@
-{ pkgs, config,  lib, ... }: 
+{ config, lib, ... }: 
 let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
 in
