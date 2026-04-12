@@ -8,9 +8,9 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
-        wgup    = "sudo wg-quick up wg0";
-        wgdown  = "sudo wg-quick down wg0";
-        wgshow  = "sudo wg show";
+        wg-up    = "sudo wg-quick up wg0";
+        wg-down  = "sudo wg-quick down wg0";
+        wg-show  = "sudo wg show";
         jj = "ji";
       };
     };
