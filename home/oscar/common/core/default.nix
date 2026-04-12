@@ -61,6 +61,8 @@ in
       iperf3
       wget
       vim
+      fzf
+      zox 
       ;
   };
 
