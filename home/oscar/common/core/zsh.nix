@@ -8,7 +8,28 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
+        jj = "ji";
       };
     };
   };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    defaultOptions = [
+      "--height 40%"
+      "--layout=reverse"
+      "--border"
+    ];
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    # Replace 'z' with 'j'
+    options = [
+      "--cmd j"
+    ];
+  };
+
 }

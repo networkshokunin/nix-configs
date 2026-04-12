@@ -61,8 +61,6 @@ in
       iperf3
       wget
       vim
-      fzf
-      zoxide # zoxide is a smarter cd replacement that learns your habits and makes it easier to navigate to frequently used directories. It integrates with the shell and can be used as a drop-in replacement for the traditional cd command, providing features like fuzzy searching and ranking of directories based on usage. By using zoxide, you can save time and keystrokes when navigating your filesystem, especially if you have a large number of directories or frequently access certain locations.
       ;
   };
 
