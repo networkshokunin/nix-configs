@@ -24,6 +24,7 @@ in
     ./git.nix
     ./nixos.nix
     ./ssh.nix
+    ./zsh.nix
   ];
 
   inherit hostSpec;
@@ -39,7 +40,7 @@ in
     ];
     sessionVariables = {
       FLAKE = "$HOME/src/nix/nix-config";
-      SHELL = "bash";
+      SHELL = "zsh";
     };
   };
 
