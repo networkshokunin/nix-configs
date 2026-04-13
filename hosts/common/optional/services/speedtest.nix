@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ lib, inputs, ... }:
 let
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
@@ -13,6 +13,12 @@ in
       useNginx = true;
       contactEmail = "admin@example.com";
     };
+    settings = {
+      enable_tls = false; 
+    };
   };
 
+  services.nginx.virtualHosts."speedtest.${acmeConfig.domain}" = {
+    enableACME = lib.mkForce true;
+  };
 }
