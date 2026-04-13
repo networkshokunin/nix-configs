@@ -19,6 +19,6 @@ in
   };
 
   services.nginx.virtualHosts."speedtest.${acmeConfig.domain}" = {
-    enableACME = lib.mkForce true;
+    useACMEHost = "${acmeConfig.domain}";
   };
 }
