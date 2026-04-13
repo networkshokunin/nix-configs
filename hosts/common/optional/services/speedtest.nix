@@ -6,7 +6,6 @@ in
 {
 
   services.librespeed = {
-    package = pkgs.unstable.librespeed;
     enable = true;
 
   };
