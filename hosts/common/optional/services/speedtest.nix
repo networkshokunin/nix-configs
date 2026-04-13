@@ -20,5 +20,8 @@ in
 
   services.nginx.virtualHosts."speedtest.${acmeConfig.domain}" = {
     useACMEHost = "${acmeConfig.domain}";
+	  extraConfig = ''
+		  proxy_set_header Host $host;
+	  '';
   };
 }
