@@ -5,8 +5,11 @@ let
   acmeConfig = import "${nix-var-acmePath}";
 
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  mgmt_network = nix-var-networkPath.subnetProfiles.management;
-  mgmt_wireguard_network = nix-var-networkPath.subnetProfiles.wireguard_mgmt;
+  netConfig = (import nix-var-networkPath { inherit lib; }) { 
+      hostname = config.hostSpec.hostName; 
+    };
+  mgmt_network = netConfig.subnetProfiles.management;
+  mgmt_wireguard_network = netConfig.subnetProfiles.wireguard_mgmt;
 in  
 {
 
