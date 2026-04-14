@@ -3,6 +3,10 @@ let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
+
+  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
+  mgmt_network = nix-var-networkPath.subnetProfiles.management;
+  mgmt_wireguard_network = nix-var-networkPath.subnetProfiles.wireguard_mgmt;
 in  
 {
 
@@ -26,8 +30,8 @@ in
     locations."/".proxyPass = "http://127.0.0.1:5380";
 	  extraConfig = ''
 		  #proxy_set_header Host $host;
-      allow 10.168.10.0/24;
-      allow 10.168.200.0/24;  
+      allow ${mgmt_network};
+      allow ${mgmt_wireguard_network};
       allow 127.0.0.1;      
     
       deny all;
