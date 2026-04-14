@@ -8,8 +8,10 @@ let
   netConfig = (import nix-var-networkPath { inherit lib; }) { 
       hostname = config.hostSpec.hostName; 
     };
-  mgmt_network = netConfig.subnetProfiles.management;
-  mgmt_wireguard_network = netConfig.subnetProfiles.wireguard_mgmt;
+  mgt_network = netConfig.subnetProfiles.management.network;
+  mgt_network_prefix = netConfig.subnetProfiles.management.prefixLength;
+  mgmt_wireguard_network = netConfig.subnetProfiles.wireguard_mgmt.network;
+  mgmt_wireguard_network_prefix = netConfig.subnetProfiles.wireguard_mgmt.prefixLength;
 in  
 {
 
@@ -33,8 +35,8 @@ in
     locations."/".proxyPass = "http://127.0.0.1:5380";
 	  extraConfig = ''
 		  #proxy_set_header Host $host;
-      allow ${mgmt_network};
-      allow ${mgmt_wireguard_network};
+      allow ${mgt_network}/${mgt_network_prefix};
+      allow ${mgmt_wireguard_network}/${mgmt_wireguard_network_prefix};
       allow 127.0.0.1;      
     
       deny all;
