@@ -8,8 +8,8 @@ let
   netConfig = (import nix-var-networkPath { inherit lib; }) { 
       hostname = config.hostSpec.hostName; 
     };
-  mgmt_network = netConfig.subnetProfiles.management;
-  mgmt_wireguard_network = netConfig.subnetProfiles.wireguard_mgmt;
+  mgmt_network = netConfig.subnetData.management;
+  mgmt_wireguard_network = netConfig.subnetData.wireguard_mgmt;
 in  
 {
 
