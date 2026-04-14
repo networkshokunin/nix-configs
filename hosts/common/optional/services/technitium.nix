@@ -35,8 +35,8 @@ in
     locations."/".proxyPass = "http://127.0.0.1:5380";
 	  extraConfig = ''
 		  #proxy_set_header Host $host;
-      allow ${mgt_network}/${mgt_network_prefix};
-      allow ${mgmt_wireguard_network}/${mgmt_wireguard_network_prefix};
+      allow ${mgt_network}/${toString mgt_network_prefix};
+      allow ${mgmt_wireguard_network}/${toString mgmt_wireguard_network_prefix};
       allow 127.0.0.1;      
     
       deny all;
