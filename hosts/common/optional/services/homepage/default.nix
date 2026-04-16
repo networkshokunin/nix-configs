@@ -25,7 +25,6 @@ in
     useACMEHost = "${acmeConfig.domain}";
     locations."${cfg.location}" = {
       proxyPass = "http://127.0.0.1:${toString cfg.port}/";
-      proxyWebsockets = true;
       recommendedProxySettings = true;
     };
 	  extraConfig = ''
