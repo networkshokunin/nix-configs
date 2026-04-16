@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = builtins.attrValues {
     inherit (pkgs.unstable)
@@ -6,4 +6,5 @@
       nixd
       ;
   };
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 }
