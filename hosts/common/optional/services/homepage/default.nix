@@ -24,7 +24,7 @@ in
   services.nginx.virtualHosts."admin.${acmeConfig.domain}" = {
     useACMEHost = "${acmeConfig.domain}";
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString cfg.port}/";
+      proxyPass = "http://127.0.0.1:${toString cfg.listenPort}/";
       recommendedProxySettings = true;
     };
 	  extraConfig = ''
