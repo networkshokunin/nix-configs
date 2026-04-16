@@ -12,8 +12,8 @@ let
 in
 {
 
-  imports = lib.builtins.filter (f: f != ./default.nix)
-    (lib.builtins.map (f: ./. + "/${f}") (lib.builtins.attrNames (lib.builtins.readDir ./.)));
+  imports = builtins.filter (f: f != ./. + "/default.nix")
+    (builtins.map (f: ./. + "/${f}") (builtins.attrNames (builtins.readDir ./.)));
 
   services.homepage-dashboard = {
     enable = true;
