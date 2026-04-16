@@ -16,6 +16,15 @@ in
             }
           ];
         }
+        {
+          "Netbox" = [
+            {
+              icon = "netbox.png";
+              href = "https://netbox.${acmeConfig.domain}";
+              description = "Netbox Inventory Management";
+            }
+          ];
+        }
       ];
     }
   ];

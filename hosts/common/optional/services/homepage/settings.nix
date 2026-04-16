@@ -6,7 +6,7 @@
 
     # Theme & appearance
     theme = "dark";       # "dark" | "light"
-    color = "slate";      # slate, gray, zinc, neutral, stone, amber, yellow,
+    color = "yellow";      # slate, gray, zinc, neutral, stone, amber, yellow,
                           # lime, green, emerald, teal, cyan, sky, blue,
                           # indigo, violet, purple, fuchsia, pink, rose, red, white
 
@@ -68,21 +68,21 @@
       # mobileButtonPosition = "bottom-right"; # top-left | top-right | bottom-left | bottom-right
     };
 
-    # PWA
-    # startUrl = "/";
-    pwa = {
-      icons = [
-        {
-          src = "/icons/icon-192x192.png";
-          type = "image/png";
-          sizes = "192x192";
-        }
-        {
-          src = "/icons/icon-512x512.png";
-          type = "image/png";
-          sizes = "512x512";
-        }
-      ];
+    # # PWA
+    # # startUrl = "/";
+    # pwa = {
+    #   icons = [
+    #     {
+    #       src = "/icons/icon-192x192.png";
+    #       type = "image/png";
+    #       sizes = "192x192";
+    #     }
+    #     {
+    #       src = "/icons/icon-512x512.png";
+    #       type = "image/png";
+    #       sizes = "512x512";
+    #     }
+    #   ];
       shortcuts = [
         {
           name = "Home";
