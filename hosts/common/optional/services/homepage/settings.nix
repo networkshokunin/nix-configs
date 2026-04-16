@@ -2,11 +2,11 @@
 {
   services.homepage-dashboard.settings = {
     title = "Admin Dashboard";
-    description = "Test";
+    description = "Administrator's Dashboard";
 
     # Theme & appearance
     theme = "dark";       # "dark" | "light"
-    color = "yellow";      # slate, gray, zinc, neutral, stone, amber, yellow,
+    color = "slate";      # slate, gray, zinc, neutral, stone, amber, yellow,
                           # lime, green, emerald, teal, cyan, sky, blue,
                           # indigo, violet, purple, fuchsia, pink, rose, red, white
 
@@ -33,15 +33,15 @@
     # iconStyle = "theme";
 
     # Link target: "_blank" | "_self" | "_top"
-    target = "_blank";
+    target = "_top";
 
     # Language (en, de, fr, es, zh-Hans, zh-Hant, etc.)
     language = "en";
 
     # Layout
     fullWidth = false;
-    # maxGroupColumns = 4;         # max 8; default 4 services, 6 bookmarks
-    # maxBookmarkGroupColumns = 6;
+    maxGroupColumns = 4;         # max 8; default 4 services, 6 bookmarks
+    maxBookmarkGroupColumns = 6;
     disableCollapse = false;
     groupsInitiallyCollapsed = false;
     useEqualHeights = false;
@@ -63,7 +63,7 @@
       searchDescriptions = true;
       hideInternetSearch = false;
       showSearchSuggestions = true;
-      hideVisitURL = false;
+      hideVisitURL = true;
       provider = "google"; # google, duckduckgo, bing, baidu, brave, custom
       # mobileButtonPosition = "bottom-right"; # top-left | top-right | bottom-left | bottom-right
     };
@@ -104,7 +104,7 @@
 
     # Misc
     hideVersion = false;
-    disableUpdateCheck = false;
+    disableUpdateCheck = true;
     disableIndexing = false;
     hideErrors = false;
     # instanceName = "public";  # for multi-instance docker discovery
