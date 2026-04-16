@@ -68,8 +68,8 @@
       # mobileButtonPosition = "bottom-right"; # top-left | top-right | bottom-left | bottom-right
     };
 
-    # # PWA
-    # # startUrl = "/";
+    # PWA
+    # startUrl = "/";
     # pwa = {
     #   icons = [
     #     {
@@ -83,17 +83,17 @@
     #       sizes = "512x512";
     #     }
     #   ];
-      shortcuts = [
-        {
-          name = "Home";
-          url = "/";
-        }
-        # {
-        #   name = "Media";
-        #   url = "/#media";
-        # }
-      ];
-    };
+    #   shortcuts = [
+    #     {
+    #       name = "Home";
+    #       url = "/";
+    #     }
+    #     # {
+    #     #   name = "Media";
+    #     #   url = "/#media";
+    #     # }
+    #   ];
+    # };
 
     # Docker / service status
     showStats = false;
