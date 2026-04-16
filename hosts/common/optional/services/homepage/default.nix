@@ -22,15 +22,12 @@ in
     }; 
 
   services.nginx.virtualHosts."admin.${acmeConfig.domain}" = {
-    useACMEHost = "${acmeConfig.domain}";
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString cfg.listenPort}/";
-      recommendedProxySettings = true;
+      useACMEHost = acmeConfig.domain; 
+      forceSSL = true;            
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString cfg.listenPort}"; 
+        proxyWebsockets = true;       
+        recommendedProxySettings = true;
+      };
     };
-	  extraConfig = ''
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-	  '';
-  };
 }
