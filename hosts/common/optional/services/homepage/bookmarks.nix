@@ -39,7 +39,7 @@ in
             {
               icon = "tp-link.png";
               href = "https://asw-parents.ib.${acmeConfig.domain}";
-              description = "Access Switch - Parents";
+              description = "Access Switch - Parents' Room";
             }
           ];
         }
@@ -52,6 +52,69 @@ in
             }
           ];
         }
+        {
+          "Access Switch - Pantry" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-pantry.ib.${acmeConfig.domain}";
+              description = "Access Switch - Pantry";
+            }
+          ];
+        }
+        {
+          "Access Switch - DB Box" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-dbbox.ib.${acmeConfig.domain}";
+              description = "Access Switch - DB Box";
+            }
+          ];
+        }
+        {
+          "Access Switch - DB Box" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-dbbox.ib.${acmeConfig.domain}";
+              description = "Access Switch - DB Box";
+            }
+          ];
+        }
+        {
+          "Access Switch - Master Bedroom" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-mbr.ib.${acmeConfig.domain}";
+              description = "Access Switch - Master Bedroom";
+            }
+          ];
+        }
+        {
+          "Access Switch - Olivia" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-olivia.ib.${acmeConfig.domain}";
+              description = "Access Switch - Olivia's Room";
+            }
+          ];
+        }
+        {
+          "Access Switch - Bryan" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-bryan.ib.${acmeConfig.domain}";
+              description = "Access Switch - Bryan's Room";
+            }
+          ];
+        }
+        {
+          "Access Switch - Xavier" = [
+            {
+              icon = "tp-link.png";
+              href = "https://asw-xavier.ib.${acmeConfig.domain}";
+              description = "Access Switch - Xavier's Room";
+            }
+          ];
+        } 
       ];
     }
   ];
