@@ -35,6 +35,7 @@
       "hosts/common/optional/services/chrony.nix" # Chrony NTP client and server
       "hosts/common/optional/services/netbox.nix" # Netbox DCIM
       "hosts/common/optional/services/speedtest.nix" # LibreSpeed speed test server
+      "hosts/common/optional/services/homepage" # Homepage/dashboard service
       #"hosts/common/optional/realtek_usb_ethernet.nix" # Udev rules for Realtek USB ethernet adapters
     ])
   ];
