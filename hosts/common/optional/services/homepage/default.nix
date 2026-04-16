@@ -3,17 +3,15 @@ let
   cfg = config.services.homepage-dashboard;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
-
-  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  netConfig = (import nix-var-networkPath { inherit lib; }) { 
-      hostname = config.hostSpec.hostName; 
-    };
-  mgt_network = netConfig.subnetProfiles.management.network;
 in
 {
 
-  imports = builtins.filter (f: f != ./. + "/default.nix")
-    (builtins.map (f: ./. + "/${f}") (builtins.attrNames (builtins.readDir ./.)));
+  imports = [
+    ./settings.nix
+    ./bookmarks.nix
+    ./services.nix
+    ./widgets.nix
+  ];
 
   services.homepage-dashboard = {
     enable = true;
