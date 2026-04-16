@@ -19,4 +19,6 @@
     cosmic-edit
     cosmic-term
   ];
+
+  services.system76-scheduler.enable = true;
 }
