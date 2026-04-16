@@ -28,7 +28,7 @@ in
         {
           "Access Switch - Management" = [
             {
-              icon = "tplink.png";
+              icon = "tp-link.png";
               href = "https://asw-mgt.ib.${acmeConfig.domain}";
               description = "Access Switch - Management";
             }
@@ -37,7 +37,7 @@ in
         {
           "Access Switch - Parents" = [
             {
-              icon = "tplink.png";
+              icon = "tp-link.png";
               href = "https://asw-parents.ib.${acmeConfig.domain}";
               description = "Access Switch - Parents";
             }
@@ -46,7 +46,7 @@ in
         {
           "Access Switch - Living Room" = [
             {
-              icon = "tplink.png";
+              icon = "tp-link.png";
               href = "https://asw-livingrm.ib.${acmeConfig.domain}";
               description = "Access Switch - Living Room";
             }
