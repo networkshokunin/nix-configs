@@ -62,24 +62,6 @@ in
           ];
         }
         {
-          "Access Switch - DB Box" = [
-            {
-              icon = "tp-link.png";
-              href = "http://asw-dbbox.ib.${acmeConfig.domain}";
-              description = "Access Switch - DB Box";
-            }
-          ];
-        }
-        {
-          "Access Switch - DB Box" = [
-            {
-              icon = "tp-link.png";
-              href = "http://asw-dbbox.ib.${acmeConfig.domain}";
-              description = "Access Switch - DB Box";
-            }
-          ];
-        }
-        {
           "Access Switch - Master Bedroom" = [
             {
               icon = "tp-link.png";
