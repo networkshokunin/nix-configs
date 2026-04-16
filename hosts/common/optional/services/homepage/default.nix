@@ -18,7 +18,7 @@ in
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
-    allowedHosts = "${mgt_network}";
+    allowedHosts = "admin.${acmeConfig.domain},127.0.0.1:${toString cfg.listenPort},localhost:${toString cfg.listenPort}";
     }; 
 
   services.nginx.virtualHosts."admin.${acmeConfig.domain}" = {
