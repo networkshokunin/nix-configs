@@ -4,7 +4,8 @@ let
   acmeConfig = import "${nix-var-acmePath}";
 in  
 {
-  services.homepage-dashboard.bookmarks =  {
+  services.homepage-dashboard.bookmarks =  [
+    {
       "Network" = [
         {
           "unifi" = {
@@ -15,6 +16,7 @@ in
           };
         }
       ];
-    };
+    }
+  ];
 }
 
