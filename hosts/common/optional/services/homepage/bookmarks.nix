@@ -29,7 +29,7 @@ in
           "Access Switch - Management" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-mgt.ib.${acmeConfig.domain}";
+              href = "http://asw-mgt.ib.${acmeConfig.domain}";
               description = "Access Switch - Management";
             }
           ];
@@ -38,7 +38,7 @@ in
           "Access Switch - Parents" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-parents.ib.${acmeConfig.domain}";
+              href = "http://asw-parents.ib.${acmeConfig.domain}";
               description = "Access Switch - Parents' Room";
             }
           ];
@@ -47,7 +47,7 @@ in
           "Access Switch - Living Room" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-livingrm.ib.${acmeConfig.domain}";
+              href = "http://asw-livingrm.ib.${acmeConfig.domain}";
               description = "Access Switch - Living Room";
             }
           ];
@@ -56,7 +56,7 @@ in
           "Access Switch - Pantry" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-pantry.ib.${acmeConfig.domain}";
+              href = "http://asw-pantry.ib.${acmeConfig.domain}";
               description = "Access Switch - Pantry";
             }
           ];
@@ -65,7 +65,7 @@ in
           "Access Switch - DB Box" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-dbbox.ib.${acmeConfig.domain}";
+              href = "http://asw-dbbox.ib.${acmeConfig.domain}";
               description = "Access Switch - DB Box";
             }
           ];
@@ -74,7 +74,7 @@ in
           "Access Switch - DB Box" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-dbbox.ib.${acmeConfig.domain}";
+              href = "http://asw-dbbox.ib.${acmeConfig.domain}";
               description = "Access Switch - DB Box";
             }
           ];
@@ -83,7 +83,7 @@ in
           "Access Switch - Master Bedroom" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-mbr.ib.${acmeConfig.domain}";
+              href = "http://asw-mbr.ib.${acmeConfig.domain}";
               description = "Access Switch - Master Bedroom";
             }
           ];
@@ -92,7 +92,7 @@ in
           "Access Switch - Olivia" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-olivia.ib.${acmeConfig.domain}";
+              href = "http://asw-olivia.ib.${acmeConfig.domain}";
               description = "Access Switch - Olivia's Room";
             }
           ];
@@ -101,7 +101,7 @@ in
           "Access Switch - Bryan" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-bryan.ib.${acmeConfig.domain}";
+              href = "http://asw-bryan.ib.${acmeConfig.domain}";
               description = "Access Switch - Bryan's Room";
             }
           ];
@@ -110,7 +110,7 @@ in
           "Access Switch - Xavier" = [
             {
               icon = "tp-link.png";
-              href = "https://asw-xavier.ib.${acmeConfig.domain}";
+              href = "http://asw-xavier.ib.${acmeConfig.domain}";
               description = "Access Switch - Xavier's Room";
             }
           ];
