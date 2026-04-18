@@ -14,6 +14,7 @@
     common/optional/terminals/ghostty
     common/optional/sops.nix
     common/optional/ide/cursor
+    common/optional/ide/zed
     common/optional/terminals/screen
     common/optional/terminals/sops
     common/optional/comms
