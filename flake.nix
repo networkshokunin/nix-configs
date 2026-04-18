@@ -44,9 +44,9 @@
               inherit inputs outputs lib;
               isDarwin = false;
             };
-            modules = [ 
-              ./hosts/nixos/${host} 
-              ];
+            modules = [
+              ./hosts/nixos/${host}
+            ];
           };
         }) (builtins.attrNames (builtins.readDir ./hosts/nixos))
       );
@@ -145,9 +145,7 @@
     #
     # ========= Utilities =========
     #
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
+    impermanence.url = "github:nix-community/impermanence";
 
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
@@ -159,6 +157,8 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
     nix-secrets = {
       url = "git+ssh://git@gitlab.com/networkshokunin/nix-secrets.git?ref=main&shallow=1";
