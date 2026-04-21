@@ -47,5 +47,7 @@ in
 
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/netbox"
+      "/var/lib/postgresql"
+      "/var/lib/redis-netbox"
     ];
 }
