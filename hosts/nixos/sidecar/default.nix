@@ -27,6 +27,7 @@
 
       # ========== Optional Configs ==========
       #
+      "hosts/common/optional/qemu-agent.nix"
       "hosts/common/optional/network.nix" # network configuration based on hostSpec
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
       "hosts/common/optional/services/acme.nix" # ACME client for automatic TLS certs

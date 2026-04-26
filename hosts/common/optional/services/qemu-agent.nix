@@ -1,0 +1,6 @@
+{
+  ...
+}:
+{
+  services.qemuGuest.enable = true;
+}
