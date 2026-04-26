@@ -138,10 +138,10 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777186798,
-        "narHash": "sha256-crKkEIFGGxfh4VYDP4lUhlq1tBD0dXE9yx60TR/nLm4=",
+        "lastModified": 1777187524,
+        "narHash": "sha256-Eoy9BqsBSeqSfcOz2GKhnvxHhIe46hhET41Ur4eseBY=",
         "ref": "main",
-        "rev": "a9a8004541f011889e24c4e46ab3c841e0c7f9c3",
+        "rev": "2f93aae0c359898b3e3c8330b3a01a2321201993",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/networkshokunin/nix-secrets.git"
