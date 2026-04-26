@@ -10,6 +10,12 @@
   lib,
   ...
 }:
+let 
+  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
+  netConfig = (import nix-var-networkPath { inherit lib; }) { 
+      hostname = config.hostSpec."sidecar-iot"; 
+    };
+in
 {
   imports = lib.flatten [
     #
@@ -72,6 +78,15 @@
   systemd.network.links."40-iot" = {
     matchConfig.PermanentMACAddress = "bc:24:11:19:9c:a0";
     linkConfig.Name = "iot";
+  };
+
+  networking = {
+    interfaces."${netConfig.interface}" = {
+      ipv4.addresses = [{
+        address = netConfig.address;
+        prefixLength =  netConfig.prefixLength;
+      }];
+    };
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
