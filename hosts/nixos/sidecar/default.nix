@@ -64,7 +64,7 @@
     enable = true;
   };
 
-  systemd.network.links."mgt" = {
+  systemd.network.links."10-mgt" = {
     matchConfig.PermanentMACAddress = "bc:24:11:83:4d:7b";
     linkConfig.Name = "mgt";
   };
