@@ -13,7 +13,7 @@
 let 
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
   netConfig = (import nix-var-networkPath { inherit lib; }) { 
-      hostname = config.hostSpec."sidecar-iot"; 
+      hostname = "sidecar-iot"; 
     };
 in
 {
