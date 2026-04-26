@@ -69,7 +69,7 @@
     linkConfig.Name = "mgt";
   };
 
-  systemd.network.links."iot" = {
+  systemd.network.links."40-iot" = {
     matchConfig.PermanentMACAddress = "bc:24:11:19:9c:a0";
     linkConfig.Name = "iot";
   };
