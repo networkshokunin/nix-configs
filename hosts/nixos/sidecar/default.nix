@@ -38,7 +38,8 @@ in
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
       "hosts/common/optional/services/acme.nix" # ACME client for automatic TLS certs
       "hosts/common/optional/services/nginx.nix" # Nginx web server
-      "hosts/common/optional/services/chrony.nix" # Chrony NTP client and server
+      "hosts/common/optional/services/chrony.nix"
+      "hosts/common/optional/services/mosquitto.nix" # Mosquitto MQTT broker
     ])
   ];
 
