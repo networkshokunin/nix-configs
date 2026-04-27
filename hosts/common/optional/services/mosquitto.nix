@@ -12,11 +12,9 @@ let
 
 in
 {
-  sops.secrets.mosquitto = lib.mkMerge [
-    {
-      "mqttPassword" = { sopsFile = mosquittoFilePath; };
-    }
-  ];
+  sops.secrets."mosquitto/mqttPassword" = {
+    sopsFile = mosquittoFilePath;
+  };
 
   services.mosquitto = {
     enable = true;
@@ -29,12 +27,15 @@ in
 
         users.mqtt = {
           acl = [ "readwrite #" ];
-          # In Nix, we usually manage the password file externally for security:
-          hashedPasswordFile = config.sops.secrets.mosquitto.mqttPassword; 
+          hashedPasswordFile = config.sops.secrets."mosquitto/mqttPassword".path; 
         };
       }
     ];
     persistence = true;
     dataDir = "/var/lib/mosquitto";
   };
+
+  environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
+      "/var/lib/mosquitto"
+    ];
 }
