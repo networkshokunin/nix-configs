@@ -12,7 +12,7 @@ let
 
 in
 {
-  sops.secrets."mosquitto/mqttPassword" = {
+  sops.secrets."mosquitto/passwords/mqtt" = {
     sopsFile = mosquittoFilePath;
   };
 
