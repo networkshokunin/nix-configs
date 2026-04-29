@@ -2,8 +2,7 @@
 let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
 
-  sopsFolder = builtins.toString inputs.nix-secrets;
-  mosquittoFilePath = "${sopsFolder}/sops/mosquitto.yaml";
+  mosquittoFilePath = "${inputs.nix-secrets}/sops/mosquitto.yaml";
 
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
   netConfig = (import nix-var-networkPath { inherit lib; }) { 
@@ -12,9 +11,12 @@ let
 
 in
 {
-  sops.secrets."mosquitto" = {
-    sopsFile = mosquittoFilePath;
-  };
+  sops.secrets = lib.mkMerge [
+    {
+      "passwords/mqtt"      = { sopsFile = mosquittoFilePath; };
+    }
+  ]; 
+
 
   services.mosquitto = {
     enable = true;
@@ -27,7 +29,7 @@ in
 
         users.mqtt = {
           acl = [ "readwrite #" ];
-          hashedPasswordFile = config.sops.secrets."mosquitto/passwords/mqtt".path; 
+          hashedPasswordFile = config.sops.secrets."passwords/mqtt".path; 
         };
       }
     ];
