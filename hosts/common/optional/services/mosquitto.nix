@@ -12,7 +12,7 @@ let
 
 in
 {
-  sops.secrets."mosquitto/passwords/mqtt" = {
+  sops.secrets."mosquitto" = {
     sopsFile = mosquittoFilePath;
   };
 
@@ -27,7 +27,7 @@ in
 
         users.mqtt = {
           acl = [ "readwrite #" ];
-          hashedPasswordFile = config.sops.secrets."mosquitto/mqttPassword".path; 
+          hashedPasswordFile = config.sops.secrets."mosquitto/passwords/mqtt".path; 
         };
       }
     ];
