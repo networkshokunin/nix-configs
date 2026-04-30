@@ -40,6 +40,8 @@ in
       "hosts/common/optional/services/nginx.nix" # Nginx web server
       "hosts/common/optional/services/chrony.nix"
       "hosts/common/optional/services/mosquitto.nix" # Mosquitto MQTT broker
+      "hosts/common/optional/services/podman.nix" # Podman container runtime
+      "hosts/common/optional/services/scrypted.nix" # Scrypted home automation server
     ])
   ];
 
