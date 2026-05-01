@@ -31,13 +31,13 @@ in
     "d /var/lib/scrypted 0750 root root -"
   ];
 
-  networking.firewall.allowedTCPPorts = [ 10443 ];
+  networking.firewall.allowedTCPPorts = [ 11080 ];
 
   services.nginx.virtualHosts."scrypted.${acmeConfig.domain}" = {
     forceSSL = true;
     useACMEHost = acmeConfig.domain;
     locations."/" = {
-      proxyPass = "https://127.0.0.1:10443";
+      proxyPass = "http://127.0.0.1:11080";
       extraConfig = ''
         proxy_ssl_verify off;
         proxy_set_header Host $host;
