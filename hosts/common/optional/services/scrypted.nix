@@ -38,12 +38,12 @@ in
     useACMEHost = acmeConfig.domain;
     locations."/" = {
       proxyPass = "http://127.0.0.1:11080";
-      extraConfig = ''
-        proxy_ssl_verify off;
-        proxy_set_header Host $host;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-      '';
+      # extraConfig = ''
+      #   proxy_ssl_verify off;
+      #   proxy_set_header Host $host;
+      #   proxy_set_header Upgrade $http_upgrade;
+      #   proxy_set_header Connection "upgrade";
+      # '';
     };
   };
 
