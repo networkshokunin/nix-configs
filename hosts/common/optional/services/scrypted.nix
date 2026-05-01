@@ -38,13 +38,13 @@ in
     useACMEHost = acmeConfig.domain;
     locations."/" = {
       proxyPass = "http://127.0.0.1:11080";
-      # extraConfig = ''
-      #   proxy_ssl_verify off;
-      #   proxy_set_header Host $host;
-      #   proxy_set_header Upgrade $http_upgrade;
-      #   proxy_set_header Connection "upgrade";
-      # '';
-    };
+      proxyWebsockets = true; # NixOS helper that sets Upgrade/Connection headers
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        client_max_body_size 0; # Needed for plugin uploads/backups
+      '';
+};
   };
 
   environment.persistence."${config.hostSpec.persistFolder}".directories =
