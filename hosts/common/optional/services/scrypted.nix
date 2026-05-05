@@ -31,7 +31,12 @@ in
     "d /var/lib/scrypted 0750 root root -"
   ];
 
-  networking.firewall.allowedTCPPorts = [ 11080 ];
+  # networking.firewall.allowedTCPPorts = [ 11080 ];
+  networking.firewall = {
+    #allowedTCPPorts = [ 11080 ];
+    allowedTCPPortRanges = [{ from = 51827; to = 51837; }];
+    allowedUDPPorts = [ 5353 ];
+  };
 
   services.nginx.virtualHosts."scrypted.${acmeConfig.domain}" = {
     forceSSL = true;
