@@ -23,7 +23,7 @@ in
     ];
     environment = {
       TZ = "Asia/Singapore";
-      # SCRYPTED_DOCKER_AVAHI = "true";
+      SCRYPTED_DOCKER_AVAHI = "true";
     };
   };                                          # <-- container block ends here
 
