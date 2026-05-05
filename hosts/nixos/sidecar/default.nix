@@ -74,13 +74,18 @@ in
   };
 
   systemd.network.links."10-mgt" = {
-    matchConfig.PermanentMACAddress = "bc:24:11:83:4d:7b";
+    matchConfig.PermanentMACAddress = "bc:24:11:b3:33:24";
     linkConfig.Name = "mgt";
   };
 
   systemd.network.links."20-iot" = {
-    matchConfig.MACAddress = "bc:24:11:19:9c:a0";
+    matchConfig.MACAddress = "bc:24:11:34:0c:0d";
     linkConfig.Name = "iot";
+  };
+
+  systemd.network.links."30-user" = {
+    matchConfig.MACAddress = "bc:24:11:a3:01:c3";
+    linkConfig.Name = "users";
   };
 
   networking = {
