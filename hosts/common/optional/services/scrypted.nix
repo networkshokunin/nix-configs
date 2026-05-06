@@ -43,7 +43,7 @@ in
     allowedUDPPorts = [ 5353 ];
     extraCommands = ''
       # HomeKit controller
-      iptables -A nixos-fw -p tcp --dport 58881:58810 -s $users_network/${users_network_prefix} -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --dport 58881:58810 -s $users_network/${toString users_network_prefix} -j nixos-fw-accept
     '';
     extraStopCommands = ''
       iptables -D nixos-fw -p tcp --dport 58881:58810 -s $users_network/${users_network_prefix} -j nixos-fw-accept || true
