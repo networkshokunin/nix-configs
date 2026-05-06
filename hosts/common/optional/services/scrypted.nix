@@ -33,7 +33,7 @@ in
 
   # networking.firewall.allowedTCPPorts = [ 11080 ];
   networking.firewall = {
-    allowedTCPPortRanges = [{ from = 58881; to = 58810; }];
+    allowedTCPPortRanges = [{ from = 58881; to = 58891; }];
     allowedUDPPorts = [ 5353 ];
   };
 
