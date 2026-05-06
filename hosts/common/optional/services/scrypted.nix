@@ -3,6 +3,14 @@ let
   isImpermanent = config.system ? "impermanence" && config.system.impermanence.enable;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
+
+  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
+  netConfig = (import nix-var-networkPath { inherit lib; }) { 
+      hostname = config.hostSpec.hostName; 
+    };
+  users_network = netConfig.subnetProfiles.users.network;
+  users_network_prefix = netConfig.subnetProfiles.users.prefixLength;
+
 in
 {
   virtualisation.oci-containers.containers.scrypted = {
@@ -31,11 +39,15 @@ in
     "d /var/lib/scrypted 0750 root root -"
   ];
 
-  # networking.firewall.allowedTCPPorts = [ 11080 ];
   networking.firewall = {
-    #allowedTCPPorts = [ 11080 ];
-    allowedTCPPortRanges = [{ from = 51827; to = 51837; }];
     allowedUDPPorts = [ 5353 ];
+    extraCommands = ''
+      # HomeKit controller
+      iptables -A nixos-fw -p tcp --dport 58881:58810 -s $users_network/${users_network_prefix} -j nixos-fw-accept
+    '';
+    extraStopCommands = ''
+      iptables -D nixos-fw -p tcp --dport 58881:58810 -s $users_network/${users_network_prefix} -j nixos-fw-accept || true
+    '';
   };
 
   services.nginx.virtualHosts."scrypted.${acmeConfig.domain}" = {
