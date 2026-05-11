@@ -67,15 +67,10 @@
   };
 
   # # https://nixos.org/manual/nixos/stable/#sec-rename-ifs
-  # systemd.network.links."10-1Gb" = {
-  #   matchConfig.PermanentMACAddress = "7c:83:34:bc:0c:67";
-  #   linkConfig.Name = "mgmt";
-  # };
-
-  # systemd.network.links."20-10Gb" = {
-  #   matchConfig.PermanentMACAddress = "90:e2:ba:4a:44:fe";
-  #   linkConfig.Name = "server";
-  # };
+  systemd.network.links."10-server" = {
+    matchConfig.PermanentMACAddress = "bc:24:11:9f:e1:98";
+    linkConfig.Name = "server";
+  };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.11";
