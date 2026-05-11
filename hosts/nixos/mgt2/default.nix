@@ -33,8 +33,6 @@
       "hosts/common/optional/services/nginx.nix" # Nginx web server
       "hosts/common/optional/services/technitium.nix" # Technitium DNS Server
       "hosts/common/optional/services/chrony.nix" # Chrony NTP client and server
-      "hosts/common/optional/services/netbox.nix" # Netbox DCIM
-      #"hosts/common/optional/services/homepage" # Homepage/dashboard service
     ])
   ];
 
