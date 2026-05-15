@@ -26,7 +26,6 @@ let
 
       extraOptions = [
         "--network=host"
-        "--restart=unless-stopped"
       ];
     };
 
@@ -42,6 +41,10 @@ in
   networking.firewall = {
     allowedTCPPortRanges = [{ from = 8881; to = 8886; }];
   };
+
+  systemd.tmpfiles.rules = map (inst: 
+      "d /var/lib/zigbee2mqtt/${inst.name} 0755 root root -"
+    ) instances;
 
   # ── Impermanence ─────────────────────────────────────────────────────────────
   environment.persistence."${config.hostSpec.persistFolder}".directories =
