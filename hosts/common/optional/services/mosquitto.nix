@@ -37,6 +37,8 @@ in
     dataDir = "/var/lib/mosquitto";
   };
 
+  networking.firewall.allowedTCPPorts = [ 1883 ];
+
   environment.persistence."${config.hostSpec.persistFolder}".directories = lib.mkIf isImpermanent [
       "/var/lib/mosquitto"
     ];

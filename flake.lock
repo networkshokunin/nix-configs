@@ -138,10 +138,10 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1778851105,
-        "narHash": "sha256-Srb4EpB3+9VQOh4FaKSwkczWbwUbJF5ZVL3FjZQXFW0=",
+        "lastModified": 1778856465,
+        "narHash": "sha256-17JOUM9W2fVWIXE04S4M+u1GZM/TG7p65tcTCjGUaG0=",
         "ref": "main",
-        "rev": "bca4e7d0e59c0a5908f149798b5497fc19f05658",
+        "rev": "a8f486183ed41db88054b73ba7b4543e27fd2725",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/networkshokunin/nix-secrets.git"
@@ -171,11 +171,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1778737229,
-        "narHash": "sha256-6xWoytx8jFW4PF1GjRm/i/53trbpKGfz6zjzQGBr4cI=",
+        "lastModified": 1778796133,
+        "narHash": "sha256-g4vNiKFr+tfsdtwPKb89+5hayAJSFrGsxyOYf21f9m4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d7a713c0b7e47c908258e71cba7a2d77cc8d71d5",
+        "rev": "503504ad2d361f6acba7fdad2cbf0869321871aa",
         "type": "github"
       },
       "original": {
