@@ -38,9 +38,7 @@ in
       value = mkContainer inst;
     }) instances);
 
-  networking.firewall = {
-    allowedTCPPortRanges = [{ from = 8881; to = 8886; }];
-  };
+  networking.firewall.allowedTCPPorts = [ 8881 8882 8883 8884 8885 8886 ];
 
   systemd.tmpfiles.rules = map (inst: 
       "d /var/lib/zigbee2mqtt/${inst.name} 0755 root root -"
