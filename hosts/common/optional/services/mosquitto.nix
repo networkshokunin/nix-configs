@@ -22,6 +22,17 @@ in
     enable = true;
     listeners = [
       {
+        address = "127.0.0.1";
+        port = 1883;
+        omitPasswordAuth = false;
+        settings.allow_anonymous = false;
+        
+        users.mqtt = {
+          acl = [ "readwrite #" ];
+          hashedPasswordFile = config.sops.secrets."passwords/mqtt".path; 
+        };
+      }
+      {
         address = netConfig.address;
         port = 1883;
         omitPasswordAuth = false;
