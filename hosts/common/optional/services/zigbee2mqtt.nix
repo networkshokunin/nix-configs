@@ -63,7 +63,7 @@ in
       value = mkContainer inst;
     }) instances);
 
-  virtualHosts = lib.listToAttrs (map mkZ2mVirtualHost instances);
+  services.nginx.virtualHosts = lib.listToAttrs (map mkZ2mVirtualHost instances);
   
   networking.firewall.allowedTCPPorts = [ 8881 8882 8883 8884 8885 8886 ];
 
