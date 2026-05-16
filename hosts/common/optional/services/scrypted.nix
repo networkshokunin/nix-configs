@@ -12,6 +12,8 @@ in
     autoStart = true;
     extraOptions = [
       "--network=host"  # Required for HomeKit/mDNS discovery
+      "--device=/dev/dri/renderD128"
+      "--device=/dev/dri/card0"
       # "--device=/dev/dri:/dev/dri"
       # "--device=/dev/kfd:/dev/kfd"
       # "--device=/dev/bus/usb:/dev/bus/usb"
@@ -37,7 +39,6 @@ in
     allowedUDPPorts = [ 5353 ];
   };
 
-
   services.nginx.virtualHosts."scrypted.${acmeConfig.domain}" = {
     forceSSL = true;
     useACMEHost = acmeConfig.domain;
@@ -56,4 +57,9 @@ in
     lib.mkIf isImpermanent [
       "/var/lib/scrypted"
     ];
+
+  # Allow the container to access render device
+  users.users.scrypted.extraGroups = [ "video" "render" ];
+  users.groups.render = {};
+  users.groups.video = {};
 }

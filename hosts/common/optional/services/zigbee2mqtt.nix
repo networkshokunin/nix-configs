@@ -32,7 +32,7 @@ let
     };
 
   mkZ2mVirtualHost = inst: {
-      name = "${inst.name}.${acmeConfig.domain}"; # Generates z2m-1.yourdomain.com
+      name = "${inst.name}.${acmeConfig.domain}"; # 
       value = {
         forceSSL = true;
         useACMEHost = "${acmeConfig.domain}";

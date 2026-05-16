@@ -41,6 +41,14 @@
   swapDevices =
     [ { device = "/dev/disk/by-label/SWAP"; }
     ];
-    
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+  };
+
+# Allow the container to access render device
+users.groups.render = {};
+users.groups.video = {};
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
