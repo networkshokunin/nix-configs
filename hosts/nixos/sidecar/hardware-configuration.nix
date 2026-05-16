@@ -42,9 +42,8 @@
     [ { device = "/dev/disk/by-label/SWAP"; }
     ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
   };
 
 # Allow the container to access render device

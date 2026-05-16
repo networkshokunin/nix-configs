@@ -58,8 +58,13 @@ in
       "/var/lib/scrypted"
     ];
 
-  # Allow the container to access render device
-  users.users.scrypted.extraGroups = [ "video" "render" ];
+  users.users.scrypted = {
+    isSystemUser = true;
+    group = "scrypted";
+    extraGroups = [ "video" "render" ];
+  };
+  
+  users.groups.scrypted = {};
   users.groups.render = {};
   users.groups.video = {};
 }
