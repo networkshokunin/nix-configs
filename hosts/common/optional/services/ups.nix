@@ -2,6 +2,7 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }:
 let
@@ -9,11 +10,7 @@ let
   sopsFolder = builtins.toString inputs.nix-secrets;
   nix-var-acmePath = "${inputs.nix-secrets}/nix-vars/acme.nix";
   acmeConfig = import "${nix-var-acmePath}";
-
-  nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  netConfig = (import nix-var-networkPath { inherit lib; }) {
-    hostname = config.hostSpec.hostName;
-  };
+  peanutPort = 8881;
 in
 {
   # ── Sops Secrets ────────────────────────────────────────────────────────────
@@ -41,28 +38,39 @@ in
     mode = "0400";
   };
 
-  # ── Assemble secretsDir file before NUT driver starts ───────────────────────
-  systemd.services.nut-snmp-secrets = {
-    description = "Assemble NUT SNMP secrets for ups1";
-    before = [ "nut-driver-ups1.service" ];
+  # ── Inject SNMP secrets into ups.conf before driver starts ──────────────────
+  systemd.services.ups-inject-secrets = {
+    description = "Inject UPS SNMP secrets into NUT configuration";
     wantedBy = [ "nut-driver-ups1.service" ];
-    serviceConfig.Type = "oneshot";
+    before = [ "nut-driver-ups1.service" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
     script = ''
-      mkdir -p /run/secrets/nut
-      chmod 700 /run/secrets/nut
-      printf 'authPassword = %s\nprivPassword = %s\n' \
-        "$(cat ${config.sops.secrets.nut-auth-password.path})" \
-        "$(cat ${config.sops.secrets.nut-priv-password.path})" \
-        > /run/secrets/nut/ups1.conf
-      chmod 400 /run/secrets/nut/ups1.conf
+      AUTH=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-auth-password.path})
+      PRIV=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-priv-password.path})
+      ${pkgs.gnused}/bin/sed -i "s|@AUTH_PASSWORD@|$AUTH|g" /etc/nut/ups.conf
+      ${pkgs.gnused}/bin/sed -i "s|@PRIV_PASSWORD@|$PRIV|g" /etc/nut/ups.conf
     '';
+  };
+
+  # Also ensure driver waits for network (UPS is remote via SNMP)
+  systemd.services.nut-driver-ups1 = {
+    after = [
+      "network-online.target"
+      "ups-inject-secrets.service"
+    ];
+    wants = [ "network-online.target" ];
+    requires = [ "ups-inject-secrets.service" ];
   };
 
   # ── NUT (Network UPS Tools) ─────────────────────────────────────────────────
   power.ups = {
     enable = true;
     mode = "netserver";
-    secretsDir = "/run/secrets/nut";
 
     ups.ups1 = {
       driver = "snmp-ups";
@@ -74,7 +82,9 @@ in
         "secLevel = authPriv"
         "secName = snmp_readonly"
         "authProtocol = SHA512"
+        "authPassword = @AUTH_PASSWORD@" # replaced at runtime by ups-inject-secrets
         "privProtocol = AES256"
+        "privPassword = @PRIV_PASSWORD@" # replaced at runtime by ups-inject-secrets
       ];
     };
 
@@ -90,7 +100,12 @@ in
 
     users.upsmon = {
       passwordFile = config.sops.secrets.nut-upsmon-password.path;
-      upsmon = "master";
+      upsmon = "primary";
+      actions = [
+        "set"
+        "fsd"
+      ];
+      instcmds = [ "all" ];
     };
 
     upsmon = {
@@ -98,27 +113,54 @@ in
       monitor.ups1 = {
         system = "ups1@localhost";
         user = "upsmon";
-        passwordFile = config.sops.secrets.nut-upsmon-password.path;
-        type = "master";
+        type = "primary";
+        powerValue = 1;
       };
     };
+  };
+
+  # ── Pre-configure PeaNUT with NUT connection ─────────────────────────────────
+  environment.etc."peanut-settings.yml" = {
+    text = ''
+      NUT_SERVERS:
+        - HOST: localhost
+          PORT: 3493
+          USERNAME: upsmon
+          PASSWORD: @UPSMON_PASSWORD@
+    '';
+  };
+
+  systemd.services.peanut-config = {
+    description = "Configure PeaNUT settings with secrets";
+    wantedBy = [ "podman-peanut.service" ];
+    before = [ "podman-peanut.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      UPSMON_PASSWORD=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-upsmon-password.path})
+      ${pkgs.coreutils}/bin/mkdir -p /var/lib/peanut
+      ${pkgs.coreutils}/bin/cp /etc/peanut-settings.yml /var/lib/peanut/settings.yml
+      ${pkgs.gnused}/bin/sed -i "s|@UPSMON_PASSWORD@|$UPSMON_PASSWORD|g" /var/lib/peanut/settings.yml
+      ${pkgs.coreutils}/bin/chmod 600 /var/lib/peanut/settings.yml
+    '';
   };
 
   # ── PeaNUT dashboard (container) ────────────────────────────────────────────
   virtualisation.oci-containers.containers.peanut = {
     image = "brandawg93/peanut:latest";
     autoStart = true;
-    ports = [
-      "127.0.0.1:8881:8080"
+    extraOptions = [
+      "--network=host" # allows container to reach localhost:3493 (NUT upsd)
     ];
     volumes = [
       "/var/lib/peanut:/config"
     ];
     environment = {
       TZ = "Asia/Singapore";
-      WEB_PORT = "8080";
-      NUT_HOST = netConfig.address;
-      NUT_PORT = "3493";
+      WEB_HOST = "0.0.0.0";
+      WEB_PORT = toString peanutPort;
     };
   };
 
@@ -127,7 +169,7 @@ in
   ];
 
   networking.firewall.allowedTCPPorts = [
-    3493
+    3493 # NUT upsd — for Home Assistant and other LAN clients
   ];
 
   # ── Nginx reverse proxy ─────────────────────────────────────────────────────
@@ -135,7 +177,7 @@ in
     forceSSL = true;
     useACMEHost = acmeConfig.domain;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:8881";
+      proxyPass = "http://127.0.0.1:${toString peanutPort}";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
