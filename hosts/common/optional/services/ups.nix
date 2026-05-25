@@ -67,7 +67,6 @@ in
       port = "ups1.ib.${acmeConfig.domain}";
       description = "Eaton UPS";
       directives = [
-        "mibs = eaton_pw_nm2"
         "snmp_version = v2c"
         "community = @AUTH_PASSWORD@" # Replaced at runtime by ups-inject-secrets
       ];
