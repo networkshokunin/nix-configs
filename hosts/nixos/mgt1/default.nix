@@ -36,6 +36,7 @@
       "hosts/common/optional/services/netbox.nix" # Netbox DCIM
       "hosts/common/optional/services/speedtest.nix" # LibreSpeed speed test server
       "hosts/common/optional/services/homepage" # Homepage/dashboard service
+      "hosts/common/optional/services/ups.nix" # UPS and Peanut service
       #"hosts/common/optional/realtek_usb_ethernet.nix" # Udev rules for Realtek USB ethernet adapters
     ])
   ];
