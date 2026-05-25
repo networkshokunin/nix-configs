@@ -14,10 +14,10 @@ let
 in
 {
   # ── Sops Secrets ────────────────────────────────────────────────────────────
-  sops.secrets.community_string = {
+  sops.secrets.nut-auth-password = {
     sopsFile = "${sopsFolder}/sops/nut.env";
     format = "dotenv";
-    key = "community_string"; # <-- Set this key to your SNMPv2c Community String in your sops file
+    key = "authPassword";
     owner = "root";
     mode = "0400";
   };
@@ -42,19 +42,9 @@ in
       RemainAfterExit = true;
     };
     script = ''
-      AUTH=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.community_string.path})
+      AUTH=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-auth-password.path})
       ${pkgs.gnused}/bin/sed -i "s|@AUTH_PASSWORD@|$AUTH|g" /etc/nut/ups.conf
     '';
-  };
-
-  # Also ensure driver waits for network (UPS is remote via SNMP)
-  systemd.services.nut-driver-ups1 = {
-    after = [
-      "network-online.target"
-      "ups-inject-secrets.service"
-    ];
-    wants = [ "network-online.target" ];
-    requires = [ "ups-inject-secrets.service" ];
   };
 
   # ── NUT (Network UPS Tools) ─────────────────────────────────────────────────
@@ -66,9 +56,10 @@ in
       driver = "snmp-ups";
       port = "ups1.ib.${acmeConfig.domain}";
       description = "Eaton UPS";
+      # Note: No 'mibs' option declared. Let NUT auto-detect the MIB structure via SNMP natively
       directives = [
         "snmp_version = v2c"
-        "community = @AUTH_PASSWORD@" # Replaced at runtime by ups-inject-secrets
+        "community = @AUTH_PASSWORD@"
       ];
     };
 
@@ -136,7 +127,7 @@ in
     image = "brandawg93/peanut:latest";
     autoStart = true;
     extraOptions = [
-      "--network=host" # allows container to reach localhost:3493 (NUT upsd)
+      "--network=host"
     ];
     volumes = [
       "/var/lib/peanut:/config"
@@ -153,7 +144,7 @@ in
   ];
 
   networking.firewall.allowedTCPPorts = [
-    3493 # NUT upsd — for Home Assistant and other LAN clients
+    3493
   ];
 
   # ── Nginx reverse proxy ─────────────────────────────────────────────────────
