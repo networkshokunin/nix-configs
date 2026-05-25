@@ -14,18 +14,10 @@ let
 in
 {
   # ── Sops Secrets ────────────────────────────────────────────────────────────
-  sops.secrets.nut-auth-password = {
+  sops.secrets.community_string = {
     sopsFile = "${sopsFolder}/sops/nut.env";
     format = "dotenv";
-    key = "authPassword";
-    owner = "root";
-    mode = "0400";
-  };
-
-  sops.secrets.nut-priv-password = {
-    sopsFile = "${sopsFolder}/sops/nut.env";
-    format = "dotenv";
-    key = "privPassword";
+    key = "community_string"; # <-- Set this key to your SNMPv2c Community String in your sops file
     owner = "root";
     mode = "0400";
   };
@@ -50,10 +42,8 @@ in
       RemainAfterExit = true;
     };
     script = ''
-      AUTH=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-auth-password.path})
-      PRIV=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.nut-priv-password.path})
+      AUTH=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.community_string.path})
       ${pkgs.gnused}/bin/sed -i "s|@AUTH_PASSWORD@|$AUTH|g" /etc/nut/ups.conf
-      ${pkgs.gnused}/bin/sed -i "s|@PRIV_PASSWORD@|$PRIV|g" /etc/nut/ups.conf
     '';
   };
 
@@ -78,13 +68,8 @@ in
       description = "Eaton UPS";
       directives = [
         "mibs = pw"
-        "snmp_version = v3"
-        "secLevel = authPriv"
-        "secName = snmp_readonly"
-        "authProtocol = SHA512"
-        "authPassword = @AUTH_PASSWORD@" # replaced at runtime by ups-inject-secrets
-        "privProtocol = AES256"
-        "privPassword = @PRIV_PASSWORD@" # replaced at runtime by ups-inject-secrets
+        "snmp_version = v2c"
+        "community = @AUTH_PASSWORD@" # Replaced at runtime by ups-inject-secrets
       ];
     };
 
