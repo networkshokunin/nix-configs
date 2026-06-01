@@ -12,8 +12,11 @@
 }:
 let 
   nix-var-networkPath = "${inputs.nix-secrets}/nix-vars/network.nix";
-  netConfig = (import nix-var-networkPath { inherit lib; }) { 
+  netConfig-iot = (import nix-var-networkPath { inherit lib; }) { 
       hostname = "sidecar-iot"; 
+    };
+  netConfig-users = (import nix-var-networkPath { inherit lib; }) { 
+      hostname = "sidecar-users"; 
     };
 in
 {
@@ -84,16 +87,22 @@ in
     linkConfig.Name = "iot";
   };
 
-  systemd.network.links."30-user" = {
+  systemd.network.links."30-users" = {
     matchConfig.MACAddress = "bc:24:11:a3:01:c3";
     linkConfig.Name = "users";
   };
 
   networking = {
-    interfaces."${netConfig.interface}" = {
+    interfaces."${netConfig-iot.interface}" = {
       ipv4.addresses = [{
-        address = netConfig.address;
-        prefixLength =  netConfig.prefixLength;
+        address = netConfig-iot.address;
+        prefixLength =  netConfig-iot.prefixLength;
+      }];
+    };
+    interfaces."${netConfig-users.interface}" = {
+      ipv4.addresses = [{
+        address = netConfig-users.address;
+        prefixLength =  netConfig-users.prefixLength;
       }];
     };
   };
