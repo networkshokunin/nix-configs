@@ -10,6 +10,8 @@
   # Enable the COSMIC desktop environment
   services.desktopManager.cosmic.enable = true;
 
+  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+
   #services.displayManager.autoLogin = {
   #  enable = true;
   #  user = "${config.hostSpec.username}";

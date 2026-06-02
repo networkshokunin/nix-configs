@@ -15,16 +15,16 @@ in
         Host *
             IdentityAgent ${onePassPath}
       '';
-      matchBlocks = {
+      settings = {
          "*" = {
-            controlMaster = "auto";
-            controlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
-            controlPersist = "20m";
+            ControlMaster = "auto";
+            ControlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
+            ControlPersist = "20m";
             # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
-            serverAliveCountMax = 3;
-            serverAliveInterval = 5; # 3 * 5s
-            hashKnownHosts = true;
-            addKeysToAgent = "yes";
+            ServerAliveCountMax = 3;
+            ServerAliveInterval = 5; # 3 * 5s
+            HashKnownHosts = true;
+            AddKeysToAgent = "yes";
          };
       };
     };

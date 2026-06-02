@@ -5,4 +5,8 @@
       screen
       ;
   };
+
+  home.file.".screenrc".text = ''
+    escape ^Bb
+  '';
 }

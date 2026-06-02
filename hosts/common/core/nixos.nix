@@ -36,4 +36,8 @@
 
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   time.timeZone = lib.mkDefault "Asia/Singapore";
+
+  # Workaround: nixpkgs 26.05 options-doc build evaluates `pythonTestDriverPackage.default`
+  # which references `hostPkgs.nixos-test-driver` and fails.
+  documentation.nixos.enable = false;
 }

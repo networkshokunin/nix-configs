@@ -7,6 +7,11 @@
       completionInit = "autoload -U compinit && compinit\nsource ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      initContent = ''
+        bindkey '^A' beginning-of-line
+        bindkey '\e[1;5C' forward-word
+        bindkey '\e[1;5D' backward-word
+      '';
       shellAliases = {
         wg-up    = "sudo wg-quick up wg0";
         wg-down  = "sudo wg-quick down wg0";
