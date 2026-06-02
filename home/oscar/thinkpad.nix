@@ -11,6 +11,7 @@
     #
     # FIXME(starter): add or remove any optional config directories or files here
     common/optional/browsers/vivaldi
+    common/optional/desktops/cosmic.nix
     common/optional/terminals/ghostty
     common/optional/sops.nix
     common/optional/ide/zed

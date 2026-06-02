@@ -10,8 +10,8 @@
   # Enable the COSMIC desktop environment
   services.desktopManager.cosmic.enable = true;
 
-  # Remap Caps Lock to Super
-  services.xserver.xkb.options = "caps:super";
+  # Caps Lock -> Super remap lives in home/oscar/common/optional/desktops/cosmic.nix
+  # (cosmic-comp ignores services.xserver.xkb.options).
 
   environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
