@@ -10,6 +10,9 @@
   # Enable the COSMIC desktop environment
   services.desktopManager.cosmic.enable = true;
 
+  # Remap Caps Lock to Super
+  services.xserver.xkb.options = "caps:super";
+
   environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
   #services.displayManager.autoLogin = {

@@ -17,6 +17,19 @@
           '';
           mode = "0755";
         };
+        "xdg/autostart/1password.desktop" = {
+          text = ''
+            [Desktop Entry]
+            Name=1Password
+            Exec=1password --silent
+            Terminal=false
+            Type=Application
+            Icon=1password
+            StartupWMClass=1Password
+            X-GNOME-Autostart-enabled=true
+          '';
+          mode = "0644";
+        };
       };
-  
+
 }

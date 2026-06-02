@@ -17,6 +17,7 @@
         wg-down  = "sudo wg-quick down wg0";
         wg-show  = "sudo wg show";
         jj = "ji";
+        cc = "claude";
       };
     };
   };
