@@ -19,6 +19,7 @@
     common/optional/comms
     common/optional/pkm/obsidian
     common/optional/terminals/starship
+    common/optional/terminals/claudecode
   ];
 
 }
