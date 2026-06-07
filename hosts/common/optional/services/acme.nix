@@ -31,7 +31,7 @@ in
 
   # Inject CF_API_EMAIL and CF_DNS_API_TOKEN into the lego renewal service.
   # systemd reads EnvironmentFile as root so default sops permissions (root:root 0400) work.
-  systemd.services."acme-${acmeConfig.domain}".serviceConfig.EnvironmentFile =
+  systemd.services."acme-order-renew-${acmeConfig.domain}".serviceConfig.EnvironmentFile =
     config.sops.secrets.acme.path;
 
   sops.secrets.acme = {
