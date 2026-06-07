@@ -12,8 +12,8 @@ in
     autoStart = true;
     extraOptions = [
       "--network=host"  # Required for HomeKit/mDNS discovery
-      "--device=/dev/dri/renderD128"
-      "--device=/dev/dri/card0"
+      # "--device=/dev/dri/renderD128"  # GPU passthrough - only if host has GPU
+      # "--device=/dev/dri/card0"
       # "--device=/dev/dri:/dev/dri"
       # "--device=/dev/kfd:/dev/kfd"
       # "--device=/dev/bus/usb:/dev/bus/usb"
