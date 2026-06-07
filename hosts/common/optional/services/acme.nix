@@ -14,7 +14,7 @@ in
     acceptTerms = true;
     defaults = {
         email = acmeConfig.email;
-        credentialsFiles = config.sops.secrets.acme.path;
+        credentialFiles = { "ACME_ENV_FILE" = config.sops.secrets.acme.path; };
         dnsProvider = acmeConfig.provider;
         dnsResolver = acmeConfig.resolver;
         dnsPropagationCheck = true;  
