@@ -14,10 +14,9 @@ in
     acceptTerms = true;
     defaults = {
         email = acmeConfig.email;
-        credentialFiles = { "ACME_ENV_FILE" = config.sops.secrets.acme.path; };
         dnsProvider = acmeConfig.provider;
         dnsResolver = acmeConfig.resolver;
-        dnsPropagationCheck = true;  
+        dnsPropagationCheck = true;
         group = config.services.nginx.group;
         renewInterval = "*-*-* 00/03:00:00";
         };
@@ -29,6 +28,12 @@ in
       };
     };
   };
+
+  # Inject CF_API_EMAIL and CF_DNS_API_TOKEN into the lego renewal service.
+  # systemd reads EnvironmentFile as root so default sops permissions (root:root 0400) work.
+  systemd.services."acme-${acmeConfig.domain}".serviceConfig.EnvironmentFile =
+    config.sops.secrets.acme.path;
+
   sops.secrets.acme = {
     sopsFile = acmeEnv;
     format = "dotenv";
