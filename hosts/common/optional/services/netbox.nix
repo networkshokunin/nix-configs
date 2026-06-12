@@ -11,6 +11,7 @@ in
     enable = true;
     package = pkgs.netbox_4_5;
     secretKeyFile = config.sops.secrets."netbox/secretKey".path;
+    apiTokenPeppersFile = config.sops.secrets."netbox/apiTokenPepper".path;
     listenAddress = "127.0.0.1";
   };
 
@@ -37,6 +38,13 @@ in
   sops.secrets = lib.mkMerge [
     {
       "netbox/secretKey" = {
+        sopsFile = "${sopsFolder}/secrets.yaml";
+        owner = "netbox";
+        group = "netbox";
+        mode = "0400";
+        restartUnits = [ "netbox.service" ];
+      };
+      "netbox/apiTokenPepper" = {
         sopsFile = "${sopsFolder}/secrets.yaml";
         owner = "netbox";
         group = "netbox";
