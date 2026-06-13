@@ -50,4 +50,9 @@ in
   # disable systemd-resolved to avoid conflicts with technitium dns server
   services.resolved.enable = false;
 
+  # Use local technitium first, fall back to 1.1.1.1 if it's not responding.
+  # Why: technitium binds 0.0.0.0:53 which conflicts with resolved's stub
+  # listener, so we rely on glibc's resolv.conf walk for failover instead.
+  networking.nameservers = lib.mkForce [ "127.0.0.1" "1.1.1.1" ];
+  networking.resolvconf.extraOptions = [ "timeout:2" "attempts:1" ];
 }

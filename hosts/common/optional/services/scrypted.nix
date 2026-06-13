@@ -10,6 +10,9 @@ in
     # Alternatives:
     #   ghcr.io/koush/scrypted:lite  (no GStreamer, smaller)
     autoStart = true;
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     extraOptions = [
       "--network=host"  # Required for HomeKit/mDNS discovery
       # "--device=/dev/dri/renderD128"  # GPU passthrough - only if host has GPU
